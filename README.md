@@ -71,7 +71,7 @@ Read more about cloning [here](https://docs.github.com/en/repositories/creating-
 
 ### 7. cd into the project folder
 ```bash
-cd Fund-wallet-web-app
+cd FundFlex
 ```
 ### 8. Install all the dependencies
 ```bash
@@ -83,7 +83,20 @@ composer install
 npm install
 ```
 
-### 10. Create a database in your phpmyadmin
+### 10. Create a .env file in the project folder
+ - Copy the content of the .env.example file and paste it in the .env file
+ - Change the following lines to your database username and password
+
+ - linux/bash
+```bash
+cp .env.example .env
+```
+ - in windows
+```bash 
+copy .env.example .env
+```
+
+### 11. Create a database in your phpmyadmin
  - Name: fundflex
 
 #### if your username is root and password is empty, you can skip this step
@@ -94,17 +107,17 @@ DB_DATABASE=fundflex
 DB_USERNAME=YOUR_USERNAME
 DB_PASSWORD=YOUR_PASSWORD
 ```
-### 11. Generate a key for the project
+### 12. Generate a key for the project
 ```bash
 php artisan key:generate
 ```
 
-### 12. Migrate the database only after step 9 is complete
+### 13. Migrate the database only after step 9 is complete
 ```bash
 php artisan migrate
 ```
 
-### 13. Run the project
+### 14. Run the project
 ```bash
 php artisan serve
 ```
