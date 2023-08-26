@@ -78,9 +78,10 @@ cd FundFlex
 composer install
 ```
 
-### 9. Install node dependencies
+### 9. Install and build node dependencies
 ```bash
 npm install
+npm run build
 ```
 
 ### 10. Create a .env file in the project folder

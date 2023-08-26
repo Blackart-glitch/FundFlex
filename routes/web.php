@@ -18,7 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
+/* Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -28,4 +28,48 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php'; */
+
+
+
+require __DIR__ . '/test-auth.php';
+
+// Dashboard
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
+
+// Wallet
+Route::get('/wallet', function () {
+    return view('wallet');
+})->name('wallet');
+
+// Transaction History
+Route::get('/transaction-history', function () {
+    return view('transaction-history');
+})->name('transaction-history');
+
+// Settings
+Route::get('/settings', function () {
+    return view('settings');
+})->name('settings');
+
+// Profile
+Route::get('/profile', function () {
+    return view('profile');
+})->name('profile');
+
+// Security
+Route::get('/security', function () {
+    return view('security');
+})->name('security');
+
+// Help / Support
+Route::get('/help-support', function () {
+    return view('help-support');
+})->name('help-support');
+
+// Promotions
+Route::get('/promotions', function () {
+    return view('promotions');
+})->name('promotions');
