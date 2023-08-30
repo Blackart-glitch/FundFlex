@@ -58,12 +58,12 @@ laravel --version
  - Add your SSH key to your github account (Read here how to add)[https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account]
  - Then clone your repository in your Xampp *Htdocs* Folder
 ```bash
-git clone git@github.com:Blackart-glitch/Fund-wallet-web-app.git
+git clone git@github.com:Blackart-glitch/FundFlex.git
 ```
 #### if you are using HTTPS
  - clone your repository in your Xampp *Htdocs* Folder
 ```bash
-git clone https://github.com/Blackart-glitch/Fund-wallet-web-app.git
+git clone https://github.com/Blackart-glitch/FundFlex.git
 ```
  - Note: you will be asked to enter your github username and password everytime you try to push to the repo
 
