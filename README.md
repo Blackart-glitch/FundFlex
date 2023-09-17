@@ -115,7 +115,7 @@ DB_PASSWORD=YOUR_PASSWORD
 php artisan key:generate
 ```
 
-### 13. Migrate the database only after step 9 is complete
+### 13. Migrate the database only after step 11 is complete
 ```bash
 php artisan migrate
 ```
