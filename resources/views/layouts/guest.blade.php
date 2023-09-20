@@ -41,6 +41,7 @@
         </div>
     </header>
 
+
     @yield('content')
 
 
@@ -55,64 +56,70 @@
         <footer class="py-5">
             <div class="row">
                 <div class="col-6 col-md-2 mb-3">
-                    <h5>Section</h5>
+                    <h5>Your Account</h5>
                     <ul class="nav flex-column">
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
+                        <li class="nav-item mb-2"><a href="/dashboard" class="nav-link p-0 text-muted">Dashboard</a>
+                        </li>
+                        <li class="nav-item mb-2"><a href="/transactions"
+                                class="nav-link p-0 text-muted">Transactions</a></li>
+                        <li class="nav-item mb-2"><a href="/send-money" class="nav-link p-0 text-muted">Send Money</a>
+                        </li>
+                        <li class="nav-item mb-2"><a href="/receive-money" class="nav-link p-0 text-muted">Receive
+                                Money</a></li>
+                        <li class="nav-item mb-2"><a href="/account-settings" class="nav-link p-0 text-muted">Account
+                                Settings</a></li>
                     </ul>
                 </div>
 
                 <div class="col-6 col-md-2 mb-3">
-                    <h5>Section</h5>
+                    <h5>Support</h5>
                     <ul class="nav flex-column">
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
+                        <li class="nav-item mb-2"><a href="/help-center" class="nav-link p-0 text-muted">Help Center</a>
+                        </li>
+                        <li class="nav-item mb-2"><a href="/contact-us" class="nav-link p-0 text-muted">Contact Us</a>
+                        </li>
+                        <li class="nav-item mb-2"><a href="/faqs" class="nav-link p-0 text-muted">FAQs</a></li>
                     </ul>
                 </div>
 
                 <div class="col-6 col-md-2 mb-3">
-                    <h5>Section</h5>
+                    <h5>Legal</h5>
                     <ul class="nav flex-column">
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
+                        <li class="nav-item mb-2"><a href="/terms-of-service" class="nav-link p-0 text-muted">Terms of
+                                Service</a></li>
+                        <li class="nav-item mb-2"><a href="/privacy-policy" class="nav-link p-0 text-muted">Privacy
+                                Policy</a></li>
                     </ul>
                 </div>
 
-                <div class="col-md-5 offset-md-1 mb-3">
-                    <form>
-                        <h5>Subscribe to our newsletter</h5>
-                        <p>Monthly digest of what's new and exciting from us.</p>
-                        <div class="d-flex flex-column flex-sm-row w-100 gap-2">
-                            <label for="newsletter1" class="visually-hidden">Email address</label>
-                            <input id="newsletter1" type="text" class="form-control" placeholder="Email address">
-                            <button class="btn btn-primary" type="button">Subscribe</button>
-                        </div>
-                    </form>
+                <!-- Guest Section Container -->
+                <div class="col-6 col-md-6 mb-3">
+                    <h5>Guest Section</h5>
+                    <p>Explore FundFlex and its benefits even before you sign up.</p>
+                    <ul class="nav flex-column">
+                        <li class="nav-item mb-2"><a href="/guest-link-1" class="nav-link p-0 text-muted">Guest Link
+                                1</a></li>
+                        <li class="nav-item mb-2"><a href="/guest-link-2" class="nav-link p-0 text-muted">Guest Link
+                                2</a></li>
+                        <li class="nav-item mb-2"><a href="/guest-link-3" class="nav-link p-0 text-muted">Guest Link
+                                3</a></li>
+                    </ul>
                 </div>
             </div>
 
             <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
-                <p>© 2022 Company, Inc. All rights reserved.</p>
+                <p>&copy; 2023-2024 Your E-Wallet, Inc. All rights reserved.</p>
                 <ul class="list-unstyled d-flex">
-                    <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24"
-                                height="24">
+                    <li class="ms-3"><a class="link-dark" href="https://twitter.com/your_e_wallet"><svg class="bi"
+                                width="24" height="24">
                                 <use xlink:href="#twitter"></use>
                             </svg></a></li>
-                    <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24"
-                                height="24">
+                    <li class="ms-3"><a class="link-dark" href="https://www.instagram.com/your_e_wallet/"><svg
+                                class="bi" width="24" height="24">
                                 <use xlink:href="#instagram"></use>
                             </svg></a></li>
-                    <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24"
-                                height="24">
+                    <li class="ms-3"><a class="link-dark" href="https://www.facebook.com/your_e_wallet"><svg
+                                class="bi" width="24" height="24">
                                 <use xlink:href="#facebook"></use>
                             </svg></a></li>
                 </ul>
@@ -120,5 +127,6 @@
         </footer>
     </div>
 </footer>
+
 
 </html>
