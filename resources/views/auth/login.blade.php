@@ -1,64 +1,77 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.guest')
+@section('content')
+    <style>
+        /* Custom CSS for the login page */
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+        .login-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-</head>
-<body class="bg-light">
+        .login-container img {
+            max-width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-<div class="min-vh-100 d-flex align-items-center justify-content-center">
-    <div class="max-w-md w-100 bg-white p-4 rounded shadow">
-        <!-- Session Status -->
-        @if (session('status'))
-            <div class="alert alert-success mb-4">{{ session('status') }}</div>
-        @endif
-
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
-
-            <!-- Email Address -->
-            <div class="mb-3">
-                <label for="email" class="form-label">{{ __('Email') }}</label>
-                <input id="email" class="form-control" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username">
-                @error('email')
-                    <p class="text-danger">{{ $message }}</p>
-                @enderror
+        @media (max-width: 768px) {
+            .login-container {
+                padding: 20px;
+            }
+        }
+    </style>
+    <main>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6 p-0">
+                    <!-- Image -->
+                    <img src="{{ asset('fundimg2-612x612.jpg') }}" alt="image of the flying dragon"
+                        style="width:100vh;height:100vh;">
+                </div>
+                <div class="col-md-6 p-0">
+                    <div class="login-container">
+                        <!-- Logo and Title -->
+                        <img src="{{ asset('fundimg-612x612.jpg') }}" alt="simple icon" style="width: 100px; height:100px;"
+                            class="mb-4">
+                        <h2 class="mb-4">Login</h2>
+                        <form method="POST" action="{{ route('login') }}">
+                            @csrf
+                            <div class="mb-3 input-group">
+                                <input type="email" class="form-control form-control-lg p-3" placeholder="Your Email"
+                                    name="email" required autofocus>
+                            </div>
+                            <div class="mb-3 input-group">
+                                <input type="password" class="form-control form-control-lg p-3" placeholder="Password"
+                                    name="password" required>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input class="form-check-input" type="checkbox" name="remember" id="remember">
+                                <label class="form-check-label" for="remember">
+                                    Remember Me
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
+                        </form>
+                        @if ($errors->any())
+                            <div class="alert alert-danger mt-4">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                    </div>
+                </div>
             </div>
-
-            <!-- Password -->
-            <div class="mb-3">
-                <label for="password" class="form-label">{{ __('Password') }}</label>
-                <input id="password" class="form-control" type="password" name="password" required autocomplete="current-password">
-                @error('password')
-                    <p class="text-danger">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <!-- Remember Me -->
-            <div class="form-check mb-3">
-                <input id="remember_me" class="form-check-input" type="checkbox" name="remember">
-                <label for="remember_me" class="form-check-label">{{ __('Remember me') }}</label>
-            </div>
-
-            <div class="d-grid">
-                @if (Route::has('password.request'))
-                    <a class="text-muted text-sm mb-2" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
-                    </a>
-                @endif
-
-                <button type="submit" class="btn btn-primary">{{ __('Log in') }}</button>
-            </div>
-        </form>
-    </div>
-</div>
-
-<!-- Bootstrap JS (Optional) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+        </div>
+    </main>
+@endsection
