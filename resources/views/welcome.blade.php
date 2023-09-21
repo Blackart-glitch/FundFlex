@@ -6,8 +6,8 @@
             <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
                 <div class="col-10 col-sm-8 col-lg-6">
                     <!-- Replace with an image related to FundFlex -->
-                    <img src="https://static.wixstatic.com/media/974c98_81208ae488d44e559c0e758168b86cfb~mv2.jpg/v1/fill/w_740,h_395,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/974c98_81208ae488d44e559c0e758168b86cfb~mv2.jpg"
-                        class="d-block mx-lg-auto img-fluid" alt="FundFlex" width="700" height="500" loading="lazy">
+                    <img src="{{ asset('fundimg.jpg') }}" class="d-block mx-lg-auto img-fluid" alt="FundFlex" width="700"
+                        height="500" loading="lazy">
                 </div>
                 <div class="col-lg-6">
                     <h1 class="display-5 fw-bold lh-1 mb-3">Welcome to FundFlex</h1>
@@ -21,7 +21,7 @@
             </div>
         </div>
 
-        <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+        <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-warning text-dark">
             <div class="col-md-5 p-lg-5 mx-auto my-5">
                 <h1 class="display-4 fw-normal">Discover the Future of University Finances</h1>
                 <p class="lead fw-normal">Simplify your university financial experience with FundFlex. Join us and
