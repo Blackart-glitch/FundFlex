@@ -1,76 +1,96 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+@extends('layouts.guest')
+@section('content')
+    <style>
+        /* Custom CSS for the registration page */
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+        .registration-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+        .registration-container img {
+            max-width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-</head>
-
-<body class="bg-light">
-
-    <div class="min-vh-100 d-flex align-items-center justify-content-center">
-        <div class="max-w-md w-100 bg-white p-4 rounded shadow">
-            <form method="POST" action="{{ route('register') }}">
-                @csrf
-
-                <!-- Name -->
-                <div class="mb-3">
-                    <label for="name" class="form-label">{{ __('Name') }}</label>
-                    <input id="name" class="form-control" type="text" name="name" value="{{ old('name') }}"
-                        required autofocus autocomplete="name">
-                    @error('name')
-                        <p class="text-danger">{{ $message }}</p>
-                    @enderror
+        @media (max-width: 768px) {
+            .registration-container {
+                padding: 20px;
+            }
+        }
+    </style>
+    <main>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6 p-0">
+                    <!-- Image -->
+                    <img src="{{ asset('fundimg2-612x612.jpg') }}" alt="image of the flying dragon"
+                        style="width:100vh;height:100vh;">
                 </div>
-
-                <!-- Email Address -->
-                <div class="mb-3">
-                    <label for="email" class="form-label">{{ __('Email') }}</label>
-                    <input id="email" class="form-control" type="email" name="email" value="{{ old('email') }}"
-                        required autocomplete="username">
-                    @error('email')
-                        <p class="text-danger">{{ $message }}</p>
-                    @enderror
+                <div class="col-md-6 p-0">
+                    <div class="registration-container">
+                        <!-- Logo and Title -->
+                        <img src="{{ asset('fundimg-612x612.jpg') }}" alt="simple icon" style="width: 100px; height:100px;"
+                            class="mb-4">
+                        <h2 class="mb-4">Registration</h2>
+                        <form method="POST" action="{{ route('register') }}">
+                            @csrf
+                            <div class="mb-3 input-group">
+                                <input type="text" class="form-control form-control-lg p-3" placeholder="First Name"
+                                    name="first_name" required>
+                            </div>
+                            <div class="mb-3 input-group">
+                                <input type="text" class="form-control form-control-lg p-3" placeholder="Surname"
+                                    name="last_name" required>
+                            </div>
+                            <div class="mb-3 input-group">
+                                <input type="email" class="form-control form-control-lg p-3" placeholder="Your Email"
+                                    name="email" required>
+                                <span class="input-group-text">@example.com</span>
+                            </div>
+                            <div class="mb-3">
+                                <div class="input-group">
+                                    <select class="form-select form-select-lg" id="country-code" name="country_code"
+                                        style="width: 50px;" required>
+                                        <option value="+1">+1 (USA)</option>
+                                        <option value="+44">+44 (UK)</option>
+                                        <!-- Add more options for different country codes -->
+                                    </select>
+                                    <input type="tel" class="form-control form-control-lg p-3"
+                                        placeholder="Phone Number (e.g., 123-456-7890)" name="phone" required>
+                                </div>
+                            </div>
+                            <div class="mb-3 input-group">
+                                <input type="password" class="form-control form-control-lg p-3" placeholder="Password"
+                                    name="password" required>
+                            </div>
+                            <div class="mb-3 input-group">
+                                <input type="password" class="form-control form-control-lg p-3"
+                                    placeholder="Confirm Password" name="password_confirmation" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg btn-block">Register</button>
+                        </form>
+                        @if ($errors->any())
+                            <div class="alert alert-danger mt-4">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                    </div>
                 </div>
-
-                <!-- Password -->
-                <div class="mb-3">
-                    <label for="password" class="form-label">{{ __('Password') }}</label>
-                    <input id="password" class="form-control" type="password" name="password" required
-                        autocomplete="new-password">
-                    @error('password')
-                        <p class="text-danger">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Confirm Password -->
-                <div class="mb-3">
-                    <label for="password_confirmation" class="form-label">{{ __('Confirm Password') }}</label>
-                    <input id="password_confirmation" class="form-control" type="password" name="password_confirmation"
-                        required autocomplete="new-password">
-                    @error('password_confirmation')
-                        <p class="text-danger">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <div class="d-grid">
-                    <a class="text-muted text-sm mb-2" href="{{ route('login') }}">
-                        {{ __('Already registered?') }}
-                    </a>
-
-                    <button type="submit" class="btn btn-primary">{{ __('Register') }}</button>
-                </div>
-            </form>
+            </div>
         </div>
-    </div>
-
-    <!-- Bootstrap JS (Optional) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-
-</html>
+    </main>
+@endsection

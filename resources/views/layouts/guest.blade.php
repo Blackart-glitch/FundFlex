@@ -2,12 +2,14 @@
 <html lang="en" class="h-100" data-bs-theme="dark">
 
 <head>
-    <script src="/docs/5.3/assets/js/color-modes.js"></script>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    {{-- Bootstrap 5 css stylesheet --}}
+    <link rel="stylesheet" href="{{ asset('bootstrap-5.3.2-dist/css/bootstrap.css') }}">
+    <script src="{{ asset('bootstrap-5.3.2-dist/js/bootstrap.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
+    </script>
 </head>
 
 <body>
@@ -34,8 +36,8 @@
                 </form>
 
                 <div class="text-end">
-                    <button type="button" class="btn btn-outline-light me-2">Login</button>
-                    <button type="button" class="btn btn-warning">Sign-up</button>
+                    <a href="{{ route('login') }}" class="btn btn-outline-light me-2">Login</a>
+                    <a href="{{ route('register') }}" class="btn btn-warning">Sign-up</a>
                 </div>
             </div>
         </div>
@@ -47,9 +49,8 @@
 
 
     {{-- bootstrap 5 script --}}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
-    </script>
+
+
 </body>
 <footer>
     <div class="container">
@@ -127,6 +128,5 @@
         </footer>
     </div>
 </footer>
-
 
 </html>
