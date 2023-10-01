@@ -39,6 +39,11 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
+// Notification
+Route::get('/notification', function () {
+    return view('notification');
+})->name('notification');
+
 // Wallet
 Route::get('/wallet', function () {
     return view('wallet');
