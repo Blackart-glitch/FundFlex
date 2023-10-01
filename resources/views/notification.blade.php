@@ -2,11 +2,6 @@
 
 @section('content')
 <div class="px-6 py-8">
-    <div class="flex items-center justify-between">
-        <h1 class="text-2xl font-semibold text-gray-800">Welcome Timothy</h1>
-        <p class="text-gray-600">Make your seamless transfer today!</p>
-    </div>
-
     <div class="container mx-auto mt-6 px-4">
         <div class="bg-white p-4 rounded-lg shadow">
             <h1 class="text-2xl font-semibold text-gray-800 text-center">Notifications</h1>

@@ -12,7 +12,7 @@
 
     <div class="flex h-screen bg-gray-200">
         <!-- Sidebar -->
-        <div class="flex-shrink-0 w-56 bg-white border-r">
+        <div class="flex-shrink-0 w-56 bg-white border-r hidden lg:block">
             <div class="">
                 <img src="{{ asset('logo.png') }}" alt="logo" class="w-40 h-36 mx-auto">
             </div>
@@ -45,6 +45,10 @@
         </div>
         <!-- Main Content -->
         <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
+            <div class="flex items-center justify-between">
+                <h1 class="text-2xl font-semibold text-gray-800">Welcome Timothy</h1>
+                <p class="text-gray-600">Make your seamless transfer today!</p>
+            </div>
             @yield('content')
         </main>
     </div>
