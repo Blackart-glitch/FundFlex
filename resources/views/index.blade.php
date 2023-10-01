@@ -11,8 +11,8 @@
 <body class="bg-gray-100 font-sans">
 
     <div class="flex h-screen bg-gray-200">
-        <!-- Sidebar -->
-        <div class="flex-shrink-0 w-56 bg-white border-r hidden lg:block">
+        <!-- Sidebar (hidden on small screens) -->
+        <div id="sidebar" class="flex-shrink-0 w-56 bg-white border-r hidden lg:block">
             <div class="">
                 <img src="{{ asset('logo.png') }}" alt="logo" class="w-40 h-36 mx-auto">
             </div>
@@ -43,15 +43,31 @@
                 </a>
             </nav>
         </div>
+        <!-- Sidebar toggle button (visible on small screens) -->
+        <div id="sidebarToggle" class="lg:hidden cursor-pointer py-2 px-3 bg-gray-200 text-black">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </div>
         <!-- Main Content -->
         <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
-            <div class="flex items-center justify-between">
-                <h1 class="text-2xl font-semibold text-gray-800">Welcome Timothy</h1>
-                <p class="text-gray-600">Make your seamless transfer today!</p>
+            <div class="px-6 py-8">
+                <div class="flex items-center justify-between">
+                    <h1 class="text-2xl font-semibold text-gray-800">Welcome Timothy</h1>
+                    <p class="text-gray-600">Make your seamless transfer today!</p>
+                </div>
+                @yield('content')
             </div>
-            @yield('content')
         </main>
     </div>
+
+    <!-- JavaScript to toggle sidebar on small screens -->
+    <script>
+        document.getElementById('sidebarToggle').addEventListener('click', function() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('hidden');
+        });
+    </script>
 
 </body>
 
