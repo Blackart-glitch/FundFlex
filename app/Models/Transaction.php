@@ -16,7 +16,6 @@ class Transaction extends Model
         'transaction_type',
         'amount',
         'currency_id',
-        'timestamp',
         'status',
         'created_at',
         'updated_at',

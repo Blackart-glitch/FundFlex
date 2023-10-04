@@ -20,11 +20,11 @@ class TransactionFactory extends Factory
     {
         return [
             // 'user_id','transaction_type','amount','currency_id','timestamp','status','created_at', 'updated_at',
-            'user_id' => User::all()->pluck('id')->random(),
-            'transaction_type' => $this->faker->randomElement(['deposit', 'withdrawal']),
+            'user_id' => 1, //User::all()->pluck('id')->random(),
+            'transaction_type' => $this->faker->randomElement(['credit', 'debit']),
             'amount' => $this->faker->randomFloat(2, 1, 1000),
             'currency_id' => Currency::all()->pluck('id')->random(),
-            'timestamp' => $this->faker->dateTimeBetween('-1 year', 'now'),
+            'description' => $this->faker->sentence(),
             'status' => $this->faker->randomElement(['pending', 'completed', 'failed']),
         ];
     }

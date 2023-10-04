@@ -46,11 +46,11 @@
                             @csrf
                             <div class="mb-3 input-group">
                                 <input type="text" class="form-control form-control-lg p-3" placeholder="First Name"
-                                    name="first_name" required>
+                                    name="Firstname" required>
                             </div>
                             <div class="mb-3 input-group">
                                 <input type="text" class="form-control form-control-lg p-3" placeholder="Surname"
-                                    name="last_name" required>
+                                    name="Lastname" required>
                             </div>
                             <div class="mb-3 input-group">
                                 <input type="email" class="form-control form-control-lg p-3" placeholder="Your Email"
@@ -66,7 +66,7 @@
                                         <!-- Add more options for different country codes -->
                                     </select>
                                     <input type="tel" class="form-control form-control-lg p-3"
-                                        placeholder="Phone Number (e.g., 123-456-7890)" name="phone" required>
+                                        placeholder="Phone Number (e.g., 123-456-7890)" name="Phone" required>
                                 </div>
                             </div>
                             <div class="mb-3 input-group">
