@@ -25,13 +25,14 @@
                     <li><a href="#" class="nav-link px-2 text-white">Transactions</a></li>
                     <li><a href="#" class="nav-link px-2 text-white">Add Funds</a></li>
                     <li><a href="#" class="nav-link px-2 text-white">Withdraw</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">Settings</a></li>
+                    <li><a href="{{ route('settings') }}" class="nav-link px-2 text-white">Settings</a></li>
                 </ul>
 
-                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-                    <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..."
-                        aria-label="Search">
-                </form>
+
+                <div class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 ">
+                    <img src="https://avatars.githubusercontent.com/u/64565324?v=4" alt="user_image" height="40"
+                        width="40" class="rounded-4">
+                </div>
 
                 <div class="text-end">
 
@@ -46,7 +47,7 @@
 
     <script src="{{ asset('bootstrap-5.3.2-dist/js/bootstrap.js') }}"></script>
 </body>
-<footer class="text-bg-dark">
+<footer class="text-bg-dark bg-hover-primary">
     <div class="container">
         <footer class="py-5">
             <div class="row">
