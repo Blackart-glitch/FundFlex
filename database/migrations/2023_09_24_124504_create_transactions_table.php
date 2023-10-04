@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('transaction_type');
+            $table->string('description')->nullable();
             $table->decimal('amount', 10, 2);
             $table->unsignedBigInteger('currency_id');
-            $table->timestamp('timestamp');
             $table->string('status');
             $table->timestamps();
 
