@@ -21,21 +21,24 @@
                 </a>
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li><a href="#" class="nav-link px-2 text-secondary">Dashboard</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">Transactions</a></li>
+                    <li><a href="{{ route('dashboard') }}" class="nav-link px-2 text-secondary">Dashboard</a></li>
+                    <li><a href="#" class="nav-link px-2 text-white" style=":hover:text">Transactions</a></li>
                     <li><a href="#" class="nav-link px-2 text-white">Add Funds</a></li>
                     <li><a href="#" class="nav-link px-2 text-white">Withdraw</a></li>
                     <li><a href="{{ route('settings') }}" class="nav-link px-2 text-white">Settings</a></li>
+                    <li><a href="{{ route('promotions') }}" class="nav-link px-2 text-white">Promotions</a></li>
                 </ul>
 
 
-                <div class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 ">
-                    <img src="https://avatars.githubusercontent.com/u/64565324?v=4" alt="user_image" height="40"
-                        width="40" class="rounded-4">
-                </div>
 
-                <div class="text-end">
-
+                <div class=" d-flex text-end gap-3 align-items-center">
+                    <div>
+                        <img src="https://avatars.githubusercontent.com/u/64565324?v=4" alt="user_image" height="40"
+                            width="40" class="rounded-4">
+                    </div>
+                    <span class="material-symbols-outlined">
+                        notifications
+                    </span>
                     <button type="button" class="btn btn-warning">Logout</button>
                 </div>
             </div>
@@ -47,7 +50,7 @@
 
     <script src="{{ asset('bootstrap-5.3.2-dist/js/bootstrap.js') }}"></script>
 </body>
-<footer class="text-bg-dark bg-hover-primary">
+<footer class="text-bg-dark ">
     <div class="container">
         <footer class="py-5">
             <div class="row">
