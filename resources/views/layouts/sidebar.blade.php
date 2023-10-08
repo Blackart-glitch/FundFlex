@@ -8,7 +8,7 @@
         }
     </style>
     <div class="row">
-        <div class="col-lg-3 p-4 col-sm-12">
+        <div class="col-lg-3 p-4 col-sm-12 shadow-lg">
             <div class="bg-dark p-3 btn btn-collapse text-white text-center rounded" data-bs-toggle="collapse"
                 data-bs-target="#sidebar">
                 <h2>Fundflex</h2>
