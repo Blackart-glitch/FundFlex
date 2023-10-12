@@ -48,6 +48,7 @@
 
     @yield('content')
 
+    <script src="{{asset('jquery-3.7.1.js')}}"></script>
     <script src="{{ asset('bootstrap-5.3.2-dist/js/bootstrap.js') }}"></script>
 </body>
 <footer class="text-bg-dark ">
@@ -106,15 +107,18 @@
                     <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24"
                                 height="24">
                                 <use xlink:href="#twitter"></use>
-                            </svg></a></li>
+                            </svg></a>
+                    </li>
                     <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24"
                                 height="24">
                                 <use xlink:href="#instagram"></use>
-                            </svg></a></li>
+                            </svg></a>
+                    </li>
                     <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24"
                                 height="24">
                                 <use xlink:href="#facebook"></use>
-                            </svg></a></li>
+                            </svg></a>
+                    </li>
                 </ul>
             </div>
         </footer>
