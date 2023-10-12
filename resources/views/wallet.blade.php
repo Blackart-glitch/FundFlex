@@ -7,27 +7,25 @@
                 <h1>$0.00</h1>
             </div>
             <div class="col-lg-6 bg-white p-2 rounded shadow-lg">
-                <h3>Cards</h3>
-                <div class="row">
-                    <div class="col-6">
-                        <div class="card bg-primary p-2 rounded">
-                            <h3>Visa</h3>
-                            <h3>**** **** **** 1234</h3>
-                            <span class="text-end mt-1">
-                                <a href="#" class="bg-warning rounded-4 p-2 text-white text-decoration-none">Remove</a>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="card bg-danger p-2 rounded">
-                            <h3>Mastercard</h3>
-                            <h3>**** **** **** 5678</h3>
-                            <span class="text-end mt-1">
-                                <a href="#"
-                                    class="bg-warning rounded-4 p-2 text-white text-decoration-none">Remove</a>
-                            </span>
-                        </div>
-                    </div>
+                <h3>Your wallet ID:</h3>
+
+                <div class="gap-2">
+                    <span>09275767833GHY</span>
+                    <span class="material-symbols-outlined btn btn-warning">
+                        content_copy
+                    </span>
+                </div>
+                <div class="text-end">
+                    <button type="button" class="btn btn-outline-primary">
+                        <span class="material-symbols-outlined">
+                            download_for_offline
+                        </span>
+                    </button>
+                    <button type="button" class="btn btn-outline-success">Regenerate
+                        <span class="material-symbols-outlined">
+                            frame_reload
+                        </span>
+                    </button>
                 </div>
             </div>
         </div>
