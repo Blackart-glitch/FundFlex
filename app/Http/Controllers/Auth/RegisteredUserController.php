@@ -51,11 +51,6 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        // Create a wallet record for the user (balance is already 0.00 by default)
-        Wallet::create([
-            'user_id' => $user->id,
-        ]);
-
         // Trigger the "Registered" event
         event(new Registered($user));
 
