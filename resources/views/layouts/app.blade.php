@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-bs-theme="">
 
 <head>
     <meta charset="utf-8">
@@ -48,7 +48,7 @@
 
     @yield('content')
 
-    <script src="{{asset('jquery-3.7.1.js')}}"></script>
+    <script src="{{ asset('jquery-3.7.1.js') }}"></script>
     <script src="{{ asset('bootstrap-5.3.2-dist/js/bootstrap.js') }}"></script>
 </body>
 <footer class="text-bg-dark ">
