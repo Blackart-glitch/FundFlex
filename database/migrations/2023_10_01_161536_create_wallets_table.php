@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->decimal('balance', 10, 2)->default(0.00);
+            $table->string('status')->default('active'); // Add the 'status' column with a default value of 'active'
             $table->timestamps();
 
             // Define foreign key constraint
