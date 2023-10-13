@@ -50,7 +50,7 @@ Route::get('/wallet', function () {
 })->name('wallet');
 
 // Transaction History
-Route::get('/transaction-history', function () {
+Route::get('/history', function () {
     return view('transaction-history');
 })->name('transaction-history');
 
