@@ -9,10 +9,7 @@ use Illuminate\Database\Eloquent\Factories\Sequence;
 /* external models */
 use App\Models\User;
 use App\Models\TransactionCategory;
-use App\Models\TransactionCategoryMapping;
-use App\Models\TransactionLog;
 use App\Models\Wallet;
-use App\Models\Currency;
 use App\Models\Transaction;
 
 /* seeders */
@@ -25,26 +22,28 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-
-        TransactionCategory::factory(10)->create();
         //create testing user account with all details
         User::create([
             'Firstname' => 'John',
             'Lastname' => 'Doe',
             'email' => 'test@gmail.com',
-            'password' => 'password'
+            'password' => 'password',
+            'Username' => 'Johnny',
+            'Phone' => '1234567890',
+            'role' => 'user',
+            'status' => 'active',
+            'avatar' => 'test_user.jpg',
+            'email_verified_at' => '2021-01-01 00:00:00',
         ]);
         /* create user admin account */
         User::create([
             'Firstname' => 'Admin',
             'Lastname' => 'Admin',
             'email' => 'Admin@admin.com',
+            'password' => 'password',
+            'role' => 'admin',
         ]);
 
-        Wallet::create([
-            'user_id' => 1,
-
-        ]);
 
         /* Admin account wallet */
         Wallet::create([
@@ -53,12 +52,15 @@ class DatabaseSeeder extends Seeder
 
         User::factory(10)->create();
 
-        Transaction::factory(50)->create();
+
 
         $this->call([
             CurrencySeeder::class,
             TransactionCategoryMappingSeeder::class,
             TransactionLogSeeder::class,
+            TransactionCategorySeeder::class,
         ]);
+
+        Transaction::factory(50)->create();
     }
 }

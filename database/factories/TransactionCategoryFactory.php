@@ -17,7 +17,7 @@ class TransactionCategoryFactory extends Factory
     public function definition(): array
     {
         return [
-            'category_name' => 'tuition_fees',
+            'name' => 'tuition_fees',
         ];
     }
 }

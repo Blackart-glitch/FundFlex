@@ -20,7 +20,8 @@ class TransactionFactory extends Factory
     {
         return [
             // 'user_id','transaction_type','amount','currency_id','timestamp','status','created_at', 'updated_at',
-            'user_id' => 1, //User::all()->pluck('id')->random(),
+            'sender_id' => 1, //User::all()->pluck('id')->random(),
+            'receiver_id' => User::all()->pluck('id')->random(),
             'transaction_type' => $this->faker->randomElement(['credit', 'debit']),
             'amount' => $this->faker->randomFloat(2, 1, 1000),
             'currency_id' => Currency::all()->pluck('id')->random(),
