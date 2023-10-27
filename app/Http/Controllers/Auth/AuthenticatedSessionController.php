@@ -10,6 +10,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
+use App\Http\Controllers\SecurityTokenController;
+use App\Http\Controllers\Auth\VerifyEmailController;
+use Illuminate\Support\Facades\Session;
+use App\Http\Controllers\TwoFactorAuthentication;
+
 class AuthenticatedSessionController extends Controller
 {
     /**
@@ -25,11 +30,37 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+
         $request->authenticate();
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        if ($request->user()->hasVerifiedEmail()) {
+
+            if ((new TwoFactorAuthentication())->Is2faEnabled($request->user())) {
+
+                //sends a pair request to google authenticator api also generates a token and stores it to the database
+                $response = (new TwoFactorAuthentication())->store($request->user());
+
+                //redirect to the 2fa page with the QR code and token
+                return view('auth.verify-two-factor', ['qrcode', $response['qrcode']]);
+            } else {
+                return redirect()->intended(RouteServiceProvider::HOME . '?two_factor=0');
+            }
+        } else {
+            //creates a token for the user
+            $token = (new SecurityTokenController())->store($request->user()->id, true);
+
+            //sends a token to the authenticated user's email address
+            $response = (new VerifyEmailController())->send_token($token);
+
+            if ($response['status'] !== true) {
+                // Set a success message
+                Session::flash('error_status', 'There was a problem sending a verification code to your email address. Please try again.');
+            }
+
+            return redirect()->route('verification.notice');
+        }
     }
 
     /**

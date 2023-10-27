@@ -29,24 +29,54 @@ class SecurityTokenController extends Controller
      * @param int $user
      * @return void
      */
-    public function store($id)
+    public function store($id, $two_factor = false)
     {
 
         // Generate a new token
         $tokenValue = $this->generateToken();
 
         //finds all tokens for the user and deletes them
-        $tokens = SecurityToken::where('user_id', $id)->delete();
+        if ($two_factor === true) {
 
-        // Set the expiration time (e.g., 10 minutes from now)
-        $expirationTime = Carbon::now()->addMinutes(10);
+            //gets the user's token record
+            $token = SecurityToken::where('user_id', $id)->where('token_type', 'two-factor')->first();
 
-        // Create a new SecurityToken record in the database
-        SecurityToken::create([
-            'user_id' => $id,
-            'token_value' => $tokenValue,
-            'expiration_time' => $expirationTime,
-        ]);
+            //checks if the token has expired
+            if ($token->expiration_time < Carbon::now()) {
+                //deletes the token
+                $token->delete();
+
+                //regenerate a new token
+                $tokenValue = $this->generateToken();
+
+                // Set the expiration time (e.g. 1 month from now)
+                $expirationTime = Carbon::now()->addMonths(1);
+
+                $record = [
+                    'user_id' => $id,
+                    'token_value' => $tokenValue,
+                    'expiration_time' => $expirationTime,
+                    'token_type' => 'two-factor'
+                ];
+
+                // Create a new SecurityToken record in the database
+                SecurityToken::create($record);
+            }
+        } else {
+            $this->destroy($id, 'email_token');
+
+            // Set the expiration time (e.g., 10 minutes from now)
+            $expirationTime = Carbon::now()->addMinutes(10);
+
+            $record = [
+                'user_id' => $id,
+                'token_value' => $tokenValue,
+                'expiration_time' => $expirationTime,
+            ];
+
+            // Create a new SecurityToken record in the database
+            SecurityToken::create($record);
+        }
 
         return $tokenValue;
     }
@@ -58,10 +88,10 @@ class SecurityTokenController extends Controller
      * @param SecurityToken $securityToken
      * @return void
      */
-    public function destroy($user)
+    public function destroy($user, $type = 'email_token')
     {
         // Find the token in the database
-        $token = SecurityToken::where('user_id', $user)->first();
+        $token = SecurityToken::where('user_id', $user)->where('token_type', $type)->first();
 
         // Delete the token from the database
         $token->delete();
@@ -76,9 +106,9 @@ class SecurityTokenController extends Controller
      *
      * @return the latest (or only) security token for the given user ID.
      */
-    public function find($userId)
+    public function find($userId, $type = 'email_token')
     {
-        $tokens = SecurityToken::where('user_id', $userId)->orderBy('created_at', 'desc')->get();
+        $tokens = SecurityToken::where('user_id', $userId)->where('token_type', $type)->orderBy('created_at', 'desc')->get();
 
         if ($tokens->count() > 1) {
             // Delete all tokens except the latest one

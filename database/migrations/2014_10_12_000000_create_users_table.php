@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('role')->default('user'); // user, admin
             $table->string('status')->default('active'); // active, inactive
+            $table->string('two_factor')->default('disabled'); // user's 2FA, enabled or disabled
             $table->string('avatar')->nullable();
             $table->rememberToken();
             $table->timestamps();

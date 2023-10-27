@@ -62,6 +62,9 @@ class VerifyEmailController extends Controller
             if ($request->user()->markEmailAsVerified()) {
                 event(new Verified($request->user()));
 
+                //deletes the token from the database
+                $record->delete();
+
                 return redirect()->intended(RouteServiceProvider::HOME . '?verified=1');
             } else {
                 //sends a new token to the user
@@ -81,7 +84,7 @@ class VerifyEmailController extends Controller
     {
         $user = Auth()->user();
 
-        $token = (new SecurityTokenController)->create($user->id);
+        $token = (new SecurityTokenController)->store($user->id);
 
         $this->send_token($token);
 
