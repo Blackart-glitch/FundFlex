@@ -22,8 +22,8 @@
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                     <li><a href="{{ route('dashboard') }}" class="nav-link px-2 text-secondary">Dashboard</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white" style=":hover:text">Transactions</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">Add Funds</a></li>
+                    <li><a href="{{ route('transaction-history') }}" class="nav-link px-2 text-white" style=":hover:text">Transactions</a></li>
+                    <li><a href="{{ route('wallet') }}" class="nav-link px-2 text-white">Add Funds</a></li>
                     <li><a href="#" class="nav-link px-2 text-white">Withdraw</a></li>
                     <li><a href="{{ route('settings') }}" class="nav-link px-2 text-white">Settings</a></li>
                     <li><a href="{{ route('promotions') }}" class="nav-link px-2 text-white">Promotions</a></li>

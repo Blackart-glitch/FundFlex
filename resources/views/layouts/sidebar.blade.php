@@ -30,7 +30,7 @@
 
                 {{-- Bills and fees --}}
                 <div>
-                    <a href="#" class="sidebar-nav btn btn-outline-dark btn-lg btn-block mt-4">Bills and
+                    <a href="{{ route('services') }}" class="sidebar-nav btn btn-outline-dark btn-lg btn-block mt-4">Bills and
                         Fees</a>
                 </div>
 
