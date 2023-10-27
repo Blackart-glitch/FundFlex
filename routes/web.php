@@ -18,63 +18,74 @@ Route::get('/', function () {
     return view('welcome'); // resources/views/welcome.blade.php
 })->name('welcome');
 
-/* Route::get('/dashboard', function () {
+Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth', 'verified')->group(function () {
+
+    // Notification
+    Route::get('/notification', function () {
+        return view('notification');
+    })->name('notification');
+
+    // Wallet
+    Route::get('/wallet', function () {
+        return view('wallet');
+    })->name('wallet');
+
+    // Transaction History
+    Route::get('/history', function () {
+        return view('history');
+    })->name('transaction-history');
+
+    // Settings
+    Route::get('/settings', function () {
+        return view('settings');
+    })->name('settings');
+
+    // Profile
+    Route::get('/profile', function () {
+        return view('profile');
+    })->name('profile');
+
+    // Security
+    Route::get('/security', function () {
+        return view('security');
+    })->name('security');
+
+    // Help / Support
+    Route::get('/support', function () {
+        return view('support');
+    })->name('support');
+
+
+
+
+
+
+
+
+
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__ . '/auth.php'; */
+require __DIR__ . '/auth.php';
 
 
 
-require __DIR__ . '/test-auth.php';
+//require __DIR__ . '/test-auth.php';
 
-// Dashboard
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
 
-// Notification
-Route::get('/notification', function () {
-    return view('notification');
-})->name('notification');
-
-// Wallet
-Route::get('/wallet', function () {
-    return view('wallet');
-})->name('wallet');
-
-// Transaction History
-Route::get('/history', function () {
-    return view('transaction-history');
-})->name('transaction-history');
-
-// Settings
-Route::get('/settings', function () {
-    return view('settings');
-})->name('settings');
-
-// Profile
-Route::get('/profile', function () {
-    return view('profile');
-})->name('profile');
-
-// Security
-Route::get('/security', function () {
-    return view('security');
-})->name('security');
-
-// Help / Support
-Route::get('/help-support', function () {
-    return view('help-support');
-})->name('help-support');
 
 // Promotions
 Route::get('/promotions', function () {
     return view('promotions');
 })->name('promotions');
+
+Route::get('/services', function () {
+    return view('services');
+})->name('services');

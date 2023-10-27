@@ -1,5 +1,9 @@
 <?php
 
+namespace App\Http\Controllers;
+
+use App\Http\Controllers\MailController;
+
 use App\Http\Controllers\Auth\RegisteredUserController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,3 +19,5 @@ Route::view('/hfssu-password', 'auth.confirm-password')->name('password.email');
 Route::post('/confirm-password', 'TransactionCategoryMappingController@bind')->name('password.store');
 
 Route::view('/confirm-password', 'auth.confirm-password')->name('token');
+
+Route::get('/send-test-email', [MailController::class, 'sendTestEmail']);
