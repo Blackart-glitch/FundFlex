@@ -23,11 +23,19 @@ class SecurityTokenController extends Controller
             . Str::random(1);
     }
 
+
     /**
-     * Store a newly created token in storage.
+     * The store function generates a new token and stores it in the database, either for two-factor
+     * authentication or email verification.
      *
-     * @param int $user
-     * @return void
+     * @param id The "id" parameter represents the user ID for which the token is being generated and
+     * stored.
+     * @param two_factor The parameter `` is a boolean value that determines whether the
+     * token being generated is for two-factor authentication or not. If it is set to `true`, it means
+     * the token is for two-factor authentication. If it is set to `false` or not provided, it means
+     * the token is
+     *
+     * @return the value of the generated token.
      */
     public function store($id, $two_factor = false)
     {
@@ -93,8 +101,10 @@ class SecurityTokenController extends Controller
         // Find the token in the database
         $token = SecurityToken::where('user_id', $user)->where('token_type', $type)->first();
 
-        // Delete the token from the database
-        $token->delete();
+        if ($token) {
+            // Delete the token
+            $token->delete();
+        }
     }
 
 

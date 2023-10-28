@@ -49,7 +49,7 @@ class AuthenticatedSessionController extends Controller
             }
         } else {
             //creates a token for the user
-            $token = (new SecurityTokenController())->store($request->user()->id, true);
+            $token = (new SecurityTokenController())->store($request->user()->id, false);
 
             //sends a token to the authenticated user's email address
             $response = (new VerifyEmailController())->send_token($token);

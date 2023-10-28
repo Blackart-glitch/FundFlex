@@ -14,8 +14,11 @@ return new class extends Migration
         Schema::create('wallets', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('account_number')->unique();
             $table->decimal('balance', 10, 2)->default(0.00);
             $table->string('status')->default('active'); // Add the 'status' column with a default value of 'active'
+            $table->string('currency')->default('NGN'); // Add the 'currency' column with a default value of 'USD' column with a default value of 'savings'
+            $table->dateTimeTz('expiration_date');
             $table->timestamps();
 
             // Define foreign key constraint
