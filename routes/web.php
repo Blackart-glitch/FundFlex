@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\WalletController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,9 +20,7 @@ Route::get('/', function () {
     return view('welcome'); // resources/views/welcome.blade.php
 })->name('welcome');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth', 'verified')->group(function () {
 
@@ -30,9 +30,7 @@ Route::middleware('auth', 'verified')->group(function () {
     })->name('notification');
 
     // Wallet
-    Route::get('/wallet', function () {
-        return view('wallet');
-    })->name('wallet');
+    Route::get('/wallet', [WalletController::class, 'index'])->name('wallet');
 
     // Transaction History
     Route::get('/history', function () {

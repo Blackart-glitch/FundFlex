@@ -22,5 +22,6 @@ class Transaction extends Model
         'updated_at',
     ];
 
-    // Define relationships, if any
+    // Define relationships to user
+
 }
