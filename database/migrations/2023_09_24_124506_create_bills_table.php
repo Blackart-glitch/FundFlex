@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('status')->default('active');
             $table->string('payment_method')->nullable();
             $table->string('reference')->nullable();
+            $table->string('attachment')->nullable();
             $table->decimal('late_fee', 10, 2)->default(0);
             $table->decimal('discounts', 10, 2)->default(0); //discounts are applied to bills
             $table->decimal('tax', 10, 2)->default(0); //taxes are applied to bills
