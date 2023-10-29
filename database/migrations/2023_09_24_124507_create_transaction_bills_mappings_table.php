@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('transaction_category_mapping', function (Blueprint $table) {
+        Schema::create('transaction_bill_mapping', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('transaction_id');
-            $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('bill_id');
             $table->timestamps();
 
-            $table->foreign('transaction_id')->references('id')->on('transactions')->onDelete('cascade');
-            $table->foreign('category_id')->references('id')->on('transaction_categories')->onDelete('cascade');
+            $table->foreign('transaction_id')->references('id')->on('transactions');
+            $table->foreign('bill_id')->references('id')->on('bills');
         });
     }
 
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('transaction_category_mapping');
+        Schema::dropIfExists('transactio_bill_mapping');
     }
 };

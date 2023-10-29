@@ -15,7 +15,6 @@ class wallet extends Model
         'balance',
         'status',
         'currency',
-        'expiration_date'
     ];
 
     public function user()

@@ -19,7 +19,6 @@ class TransactionFactory extends Factory
     public function definition(): array
     {
         return [
-            // 'user_id','transaction_type','amount','currency_id','timestamp','status','created_at', 'updated_at',
             'sender_id' => 1, //User::all()->pluck('id')->random(),
             'receiver_id' => User::all()->pluck('id')->random(),
             'transaction_type' => $this->faker->randomElement(['credit', 'debit']),

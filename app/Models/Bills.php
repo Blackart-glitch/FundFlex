@@ -12,11 +12,19 @@ class Bills extends Model
     protected $table = 'bills';
 
     protected $fillable = [
-        'name',
-        'category',
+        'title',
+        'description',
         'amount',
-        'attachments',
-        'type'
+        'due_date',
+        'status',
+        'payment_method',
+        'reference',
+        'late_fee',
+        'discounts',
+        'tax',
+        'type',
+        'billing_period',
+        'category_id'
     ];
 
     public function users()

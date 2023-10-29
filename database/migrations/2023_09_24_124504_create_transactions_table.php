@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('reference_id')->nullable();
             $table->unsignedBigInteger('sender_id'); // Add sender_id
             $table->unsignedBigInteger('receiver_id'); // Add receiver_id
             $table->string('transaction_type');
@@ -21,7 +22,7 @@ return new class extends Migration
             $table->unsignedBigInteger('currency_id')->nullable(); // You can make currency_id nullable
             $table->string('status');
             $table->text('attachments')->nullable();
-            $table->string('payment_gateway')->nullable();
+            $table->string('payment_gateway')->default('fundflex_secure');
             $table->timestamps();
 
             $table->foreign('sender_id')->references('id')->on('users');

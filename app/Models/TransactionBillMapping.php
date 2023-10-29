@@ -5,17 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TransactionCategoryMapping extends Model
+class TransactionBillMapping extends Model
 {
     use HasFactory;
 
-    protected $table = 'transaction_category_mapping';
+    protected $table = 'transaction_bill_mapping';
 
     protected $fillable = [
         'transaction_id',
-        'category_id',
-        'created_at',
-        'updated_at',
+        'bill_id',
     ];
 
     // Define relationships, if any

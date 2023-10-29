@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Transaction_category_stages>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Transaction_category>
  */
-class TransactionCategoryStagesFactory extends Factory
+class BillCategoryFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +17,7 @@ class TransactionCategoryStagesFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => 'tuition_fees',
         ];
     }
 }

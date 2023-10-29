@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TransactionCategory extends Model
+class BillCategory extends Model
 {
     use HasFactory;
 
-    protected $table = 'transaction_categories';
+    protected $table = 'bill_categories';
 
     protected $fillable = [
-        'category_name',
+        'name',
     ];
 
     // Define relationships, if any

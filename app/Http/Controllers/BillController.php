@@ -9,9 +9,10 @@ use App\Http\Controllers\BillController;
 
 class BillsController extends Controller
 {
-    public function getbills()
+    public function getuserbills()
     {
-        $bills = Bills::all()->sortBy('updated_at')->reverse();
+        $user = Auth::user();
+        $bills = Bills::where('user_id', $user->id)->get();
         return $bills;
     }
 }

@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up()
     {
+
         Schema::create('bills', function (Blueprint $table) {
             $table->id();
             $table->string('title');
@@ -21,15 +22,14 @@ return new class extends Migration
             $table->string('payment_method')->nullable();
             $table->string('reference')->nullable();
             $table->decimal('late_fee', 10, 2)->default(0);
-            $table->decimal('discounts', 10, 2)->default(0);
-            $table->decimal('tax', 10, 2)->default(0);
+            $table->decimal('discounts', 10, 2)->default(0); //discounts are applied to bills
+            $table->decimal('tax', 10, 2)->default(0); //taxes are applied to bills
+            $table->bigInteger('category_id')->unsigned();
             $table->string('type'); //categorize bills, such as "Tuition," "Extracurricular," "Books," etc.
             $table->string('billing_period')->nullable(); // school bills on a periodic basis (e.g., monthly, quarterly, annually),
             $table->timestamps();
 
-            /*             $table->foreign('student_category')->references('id')->on('students');
-            $table->foreign('created_by')->references('id')->on('users');
-            $table->foreign('modified_by')->references('id')->on('users'); */
+            $table->foreign('category_id')->references('id')->on('bill_categories');
         });
     }
 
