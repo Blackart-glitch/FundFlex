@@ -1,16 +1,18 @@
 @extends('layouts.sidebar')
 @section('sidebar.content')
+    <script src="{{ asset('jquery-3.7.1.js') }}"></script>
+    <script src="{{ asset('bootstrap-5.3.2/dist/js/bootstrap.js') }}"></script>
     <div>
         <div class="row justify-content-evenly">
             <div class="col-lg-5 bg-white p-2 rounded shadow-lg">
                 <h2>Available Balance</h2>
-                <h1>$0.00</h1>
+                <h3>{{ $wallet->currency . ' ' . number_format($wallet->balance, 2, '.', ' ') }}</h3>
             </div>
             <div class="col-lg-6 bg-white p-2 rounded shadow-lg">
-                <h3>Your wallet ID:</h3>
+                <h3>Your wallet ID: </h3>
 
                 <div class="gap-2">
-                    <span>09275767833GHY</span>
+                    <span>{{ $wallet->account_number }} </span>
                     <span class="material-symbols-outlined btn btn-warning">
                         content_copy
                     </span>
@@ -21,7 +23,7 @@
                             download_for_offline
                         </span>
                     </button>
-                    <button type="button" class="btn btn-outline-success">Regenerate
+                    <button type="button" class="btn btn-outline-success">Generate
                         <span class="material-symbols-outlined">
                             frame_reload
                         </span>
@@ -47,62 +49,37 @@
             <div class="py-5 ">
                 <div class="container">
                     <div class="row  g-3">
-                        <div class="col">
-                            <div class="card shadow-sm">
-                                <img src="{{ asset('electricity.png') }}" alt="electricity"
-                                    class="bd-placeholder-img card-img-top" width="100%" height="150"
-                                    xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
-                                    preserveAspectRatio="xMidYMid slice" focusable="false">
-                                <div class="card-body">
-                                    <p class="card-text">Electricity</p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-sm btn-outline-secondary">View
-                                                Bill</button>
-                                            <button type="button" class="btn btn-sm btn-outline-secondary">Pay
-                                                Bill</button>
-                                        </div>
-                                    </div>
-                                </div>
+                        @php
+                            $i = 0;
+                        @endphp
+                        @foreach ($bills as $bill)
+                            @php
+                                $i++;
+                                if ($i > 3) {
+                                    break;
+                                }
+                            @endphp
+                            <div class="col">
+                                <x-bill-card>
+                                    <x-slot name="id">{{ $bill->id }}</x-slot>
+                                    <x-slot name="image">electricity.png{{-- {{$bill->attachments}} --}}</x-slot>
+                                    <x-slot name="title">{{ $bill->title }}</x-slot>
+                                    <x-slot name="due_date">{{ $bill->due_date }}</x-slot>
+                                    <x-slot name="description">{{ $bill->description }}</x-slot>
+                                    <x-slot name="status">{{ $bill->status }}</x-slot>
+                                    <x-slot name="amount">{{ $bill->amount }}</x-slot>
+                                    <x-slot name="payment_method">{{ $bill->payment_method }}</x-slot>
+                                    <x-slot name="reference">{{ $bill->reference }}</x-slot>
+                                    <x-slot name="late_fee">{{ $bill->late_fee }}</x-slot>
+                                    <x-slot name="tax">{{ $bill->tax }}</x-slot>
+                                    <x-slot name="discounts">{{ $bill->discounts }}</x-slot>
+                                    <x-slot name="category">{{ $bill->category }}</x-slot>
+                                    <x-slot name="type">{{ $bill->type }}</x-slot>
+                                    <x-slot name="billing_period">{{ $bill->billing_period }}</x-slot>
+                                    <x-slot name="updated_at">{{ $bill->updated_at }}</x-slot>
+                                </x-bill-card>
                             </div>
-                        </div>
-                        <div class="col">
-                            <div class="card shadow-sm">
-                                <img src="{{ asset('water.png') }}" alt="water" class="bd-placeholder-img card-img-top"
-                                    width="100%" height="150" xmlns="http://www.w3.org/2000/svg" role="img"
-                                    aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice"
-                                    focusable="false">
-                                <div class="card-body">
-                                    <p class="card-text">Water</p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-sm btn-outline-secondary">View
-                                                Bill</button>
-                                            <button type="button" class="btn btn-sm btn-outline-secondary">Pay
-                                                Bill</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card shadow-sm">
-                                <img src="{{ asset('books.png') }}" alt="internet" class="bd-placeholder-img card-img-top"
-                                    width="100%" height="150" xmlns="http://www.w3.org/2000/svg" role="img"
-                                    aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice"
-                                    focusable="false">
-                                <div class="card-body">
-                                    <p>Tuition Fees</p>
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">View
-                                            Bill</button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Pay
-                                            Bill</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+                        @endforeach
                     </div>
                 </div>
             </div>

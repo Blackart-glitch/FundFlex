@@ -13,6 +13,18 @@
         }
     </style>
     <div>
+
+        @if (isset($_GET['verified']) && $_GET['verified'] == 1)
+            <div class="alert alert-success alert-dismissible fade show" tabindex="-1" role="alert">
+                <strong>Success!</strong> Your account has been verified.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @else
+            <div class="alert alert-success alert-dismissible fade show" tabindex="-1" role="alert">
+                <strong>Success!</strong> welcome back {{ $user->Firstname }}.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
         <div class="row justify-content-evenly">
             <div class="col-lg-5 bg-white p-2 rounded shadow-lg">
                 <div class="card">
@@ -33,7 +45,8 @@
                                 <p> {{ $user->Firstname . ' ' . $user->Lastname }} </p>
                             </div>
                             <div class="card-expiry ">
-                                <p class="text-danger">Valid Thru: {{ $wallet->expiration_date }} </p>
+                                <span class="text-danger fw-bold">Change since : </span>
+                                <span class="text-success fw-bold">{{ $wallet->updated_at }}</span>
                             </div>
                         @else
                             <p>You don't have a wallet yet...</p>
@@ -108,6 +121,9 @@
                     <p class="text-dark"> You have no transactions yet. Go ahead and settle a bill</p>
                 </div>
             @endif
+            <div class="transaction-card bg-white align-items-center rounded-2 shadow-sm border border-0 p-3 mt-2">
+                <a href="{{ route('transaction-history') }}" class="d-flex justify-content-center">View all transactions</a>
+            </div>
         </div>
 
     </div>

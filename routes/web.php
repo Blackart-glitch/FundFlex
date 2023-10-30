@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\WalletController;
+use App\Http\Controllers\BillController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,15 +58,6 @@ Route::middleware('auth', 'verified')->group(function () {
         return view('support');
     })->name('support');
 
-
-
-
-
-
-
-
-
-
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -85,5 +77,10 @@ Route::get('/promotions', function () {
 })->name('promotions');
 
 Route::get('/services', function () {
-    return view('services');
+
+    $bills = (new BillController())->getallbills();
+
+    return view('services', [
+        'bills' => $bills,
+    ]);
 })->name('services');

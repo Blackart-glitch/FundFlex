@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\TransactionCategoryController;
-use App\Models\TransactionCategory;
+use App\Models\BillCategory;
 
 class TransactionController extends Controller
 {
@@ -32,14 +31,6 @@ class TransactionController extends Controller
             ->orWhere('receiver_id', $this->user->id)
             ->orderBy('updated_at', 'desc')
             ->get();
-
-        //for each transaction, link the category name to it
-        foreach ($transactions as $transaction) {
-
-            $categories = (new TransactionCategory())->getCategorylinks($transaction->id);
-
-            $transactions->categories = $categories;
-        }
 
         return $transactions;
     }

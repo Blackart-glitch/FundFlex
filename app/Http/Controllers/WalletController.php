@@ -7,6 +7,7 @@ use App\Http\Requests\StorewalletRequest;
 use App\Http\Requests\UpdatewalletRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\BillController;
 
 class WalletController extends Controller
 {
@@ -14,7 +15,6 @@ class WalletController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
         $this->user = Auth::user();
     }
     /**
@@ -22,11 +22,13 @@ class WalletController extends Controller
      */
     public function index()
     {
-        $wallet = $this->getWallet($this->user->id);
-        $Bills = $this->getBills($this->user->id);
+        $user = auth()->user();
+        $wallet = $this->getWallet($user->id);
+        $bills = (new BillController())->getuserbills();
 
         return view('wallet', [
             'wallet' => $wallet,
+            'bills' => $bills,
         ]);
     }
 

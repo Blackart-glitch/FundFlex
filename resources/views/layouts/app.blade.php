@@ -37,7 +37,8 @@
                         <img src="https://avatars.githubusercontent.com/u/64565324?v=4" alt="user_image" height="40"
                             width="40" class="rounded-4">
                     </div>
-                    <span class="material-symbols-outlined">
+                    <span class=" btn btn-outline-warning material-symbols-outlined" data-bs-toggle="modal"
+                        data-bs-target="#notificationModal">
                         notifications
                     </span>
                     <form method="POST" action="{{ route('logout') }}">
@@ -49,6 +50,7 @@
         </div>
     </header>
 
+    <x-notification />
 
     @yield('content')
 

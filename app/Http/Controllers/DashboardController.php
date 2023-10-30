@@ -17,7 +17,8 @@ class DashboardController extends Controller
         $wallet = (new WalletController())->getWallet($user->id);
 
         //get the transaction history of the user
-        $transactions = (new TransactionController())->getTransactions();
+        $transactions = (new TransactionController())->getTransactions()->take(5);
+
 
 
 

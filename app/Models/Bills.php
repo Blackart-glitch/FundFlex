@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Models\User;
+
 class Bills extends Model
 {
     use HasFactory;
@@ -29,6 +31,6 @@ class Bills extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class, 'bill_mappings', 'bill_id', 'user_id');
     }
 }
