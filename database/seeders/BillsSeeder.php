@@ -10,6 +10,7 @@ use  App\Models\Bills;
 use  App\Models\bill_mapping;
 use  App\Models\User;
 use  App\Models\BillCategory;
+use App\Models\Currency;
 
 class BillsSeeder extends Seeder
 {
@@ -45,6 +46,8 @@ class BillsSeeder extends Seeder
                 'due_date' => Carbon::now()->addDays(rand(1, 30)),
                 'category_id' => BillCategory::all()->random()->pluck('id')->first(),
                 'status' => 'active',
+                'attachment' => 'https://placehold.co/400',
+                'currency_id' => Currency::all()->random()->pluck('id')->first(),
                 'payment_method' => 'fundflex secure',
                 'reference' => 'fundflex' . rand(100000, 999999),
                 'late_fee' => rand(1000, 10000),

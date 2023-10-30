@@ -21,6 +21,8 @@ class Bills extends Model
         'status',
         'payment_method',
         'reference',
+        'attachment',
+        'currency_id',
         'late_fee',
         'discounts',
         'tax',
@@ -32,5 +34,10 @@ class Bills extends Model
     public function users()
     {
         return $this->belongsToMany(User::class, 'bill_mappings', 'bill_id', 'user_id');
+    }
+
+    public function currency()
+    {
+        return $this->belongsTo(Currency::class, 'currency_id');
     }
 }

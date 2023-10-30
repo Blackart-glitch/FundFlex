@@ -12,9 +12,12 @@ class Currency extends Model
     protected $table = 'currencies';
 
     protected $fillable = [
-        'currency_code',
-        'currency_name',
+        'code',
+        'name',
     ];
 
-    // Define relationships, if any
+    public function bills()
+    {
+        return $this->hasMany(Bill::class, 'currency_id');
+    }
 }

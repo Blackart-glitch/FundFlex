@@ -11,16 +11,14 @@
                         data-bs-target="{{ '#modal' . $id }}">
                         View Bill
                     </button>
-                    <button type="button" class="btn btn-sm btn-outline-secondary">
-                        Pay Bill
-                    </button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
+                        data-bs-target="{{ '#paymentmodal' . $id }}">Pay Bill</button>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Modal Body -->
-    <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
     <div class="modal fade" id="{{ 'modal' . $id }}" tabindex="-1" role="dialog" aria-labelledby="{{ 'modal' . $id }}"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
@@ -107,9 +105,20 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-outline-danger" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Pay Bill</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
+                        data-bs-target="{{ '#paymentmodal' . $id }}">Pay Bill</button>
                 </div>
             </div>
         </div>
+    </div>
+
+    <div>
+        <x-make-payment>
+            <x-slot name="id">{{ $id }}</x-slot>
+            <x-slot name="title">{{ $title }}</x-slot>
+            <x-slot name="billamount">{{ $amount }}</x-slot>
+            <x-slot name="Tax">{{ $tax }}</x-slot>
+            <x-slot name="Discount">{{ $discounts }}</x-slot>
+        </x-make-payment>
     </div>
 </div>
