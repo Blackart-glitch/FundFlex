@@ -14,6 +14,7 @@ class SecurityToken extends Model
     protected $fillable = [
         'user_id',
         'token_value',
+        'token_type',
         'expiration_time',
     ];
 

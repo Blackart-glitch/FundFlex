@@ -44,21 +44,18 @@ class SecurityTokenController extends Controller
         $tokenValue = $this->generateToken();
 
         //finds all tokens for the user and deletes them
-        if ($two_factor === true) {
-
-            //gets the user's token record
+        if ($two_factor) {
+            // Get the user's token record
             $token = SecurityToken::where('user_id', $id)->where('token_type', 'two-factor')->first();
 
-            //checks if the token has expired
-            if ($token->expiration_time < Carbon::now()) {
-                //deletes the token
-                $token->delete();
-
-                //regenerate a new token
+            if ($token !== null && $token->expiration_time > Carbon::now()) {
+                // The token exists and is not expired, so you don't need to generate a new one.
+                return $token->token_value;
+            } else {
+                // The token has expired or doesn't exist, so generate a new one.
                 $tokenValue = $this->generateToken();
-
-                // Set the expiration time (e.g. 1 month from now)
-                $expirationTime = Carbon::now()->addMonths(1);
+                // Set the expiration time (e.g., 1 month from now)
+                $expirationTime = Carbon::now()->addWeek(1);
 
                 $record = [
                     'user_id' => $id,
@@ -69,6 +66,8 @@ class SecurityTokenController extends Controller
 
                 // Create a new SecurityToken record in the database
                 SecurityToken::create($record);
+
+                return $tokenValue;
             }
         } else {
             $this->destroy($id, 'email_token');
@@ -79,6 +78,7 @@ class SecurityTokenController extends Controller
             $record = [
                 'user_id' => $id,
                 'token_value' => $tokenValue,
+                'token_type' => 'email_token',
                 'expiration_time' => $expirationTime,
             ];
 
@@ -120,16 +120,20 @@ class SecurityTokenController extends Controller
     {
         $tokens = SecurityToken::where('user_id', $userId)->where('token_type', $type)->orderBy('created_at', 'desc')->get();
 
-        if ($tokens->count() > 1) {
-            // Delete all tokens except the latest one
-            $tokensToDelete = $tokens->slice(1);
-            foreach ($tokensToDelete as $token) {
-                $token->delete();
+        if ($type === 'email_token') {
+            if ($tokens->count() > 1) {
+                // Delete all tokens except the latest one
+                $tokensToDelete = $tokens->slice(1);
+                foreach ($tokensToDelete as $token) {
+                    $token->delete();
+                }
             }
-        }
 
-        // Get the latest (or only) token
-        $latestToken = $tokens->first();
+            // Get the latest (or only) token
+            $latestToken = $tokens->first();
+        } elseif ($type === 'two-factor') {
+            $latestToken = $tokens->first();
+        }
 
         return $latestToken;
     }

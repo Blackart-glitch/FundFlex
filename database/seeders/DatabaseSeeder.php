@@ -40,11 +40,34 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => '2023-10-27 00:00:00',
         ]);
 
+        //create admin account with all details
+        User::create([
+            'Firstname' => 'FundFlex',
+            'Lastname' => 'PLC',
+            'email' => 'support@FundFlex.com',
+            'password' => 'superencryptedpassword',
+            'Username' => 'Fundflex',
+            'Phone' => '1234567890',
+            'role' => 'admin',
+            'status' => 'active',
+            'avatar' => 'admin.jpg',
+            'email_verified_at' => '2023-10-27 00:00:00',
+        ]);
+
         /* Test account wallet */
         Wallet::create([
             'user_id' => 1,
             'account_number' => '45367657223',
             'balance' => 100000,
+            'status' => 'active',
+            'currency' => 'NGN'
+        ]);
+
+        /* Admin account wallet */
+        Wallet::create([
+            'user_id' => 2,
+            'account_number' => '45367657224',
+            'balance' => 0,
             'status' => 'active',
             'currency' => 'NGN'
         ]);
@@ -63,8 +86,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             BillsSeeder::class,
-            TransactionBillMappingSeeder::class
-
+            TransactionBillMappingSeeder::class,
+            BanksSeeder::class
         ]);
     }
 }
