@@ -14,7 +14,14 @@ return new class extends Migration
         Schema::create('banks', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('slug');
             $table->string('code');
+            $table->string('longcode')->nullable();
+            $table->string('pay_with_bank');
+            $table->string('status')->default('active');
+            $table->string('country');
+            $table->string('currency');
+            $table->string('type');
             $table->integer('country_code')->default(234);
             $table->timestamps();
         });
