@@ -4,14 +4,17 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateTransactionCategoryMappingRequest extends FormRequest
+class PaymentsTopUpRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        //only authenticated users can make this request
+        return auth()->check()
+            ? true
+            : false;
     }
 
     /**
@@ -22,7 +25,10 @@ class UpdateTransactionCategoryMappingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            //currency and amount are required
+            'currency' => 'required|numeric',
+            'amount' => 'required|numeric',
+            'paymentMode' => 'required|string',
         ];
     }
 }

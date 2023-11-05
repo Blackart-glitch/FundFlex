@@ -26,10 +26,6 @@ class TwoFactorAuthentication extends Controller
     {
         //if request is get
         if ($request->isMethod('get')) {
-            /*             //get the form data of the request
-            $data = $request->all();
-            //store the data in the session
-            session(['transaction_details' => $data]); */
 
             //perform two factor authentication
             $response = $this->store($request->user());
@@ -45,6 +41,10 @@ class TwoFactorAuthentication extends Controller
             $response = $this->validateToken($pin);
 
             if ($response === 'True') {
+
+                //update the user two factor column to enabled
+                User::where('id', $request->user()->id)->update(['two_factor' => 'enabled']);
+
                 //redirect to intended route
                 return redirect()->intended(RouteServiceProvider::HOME . '?two_factor=1');
             } else {

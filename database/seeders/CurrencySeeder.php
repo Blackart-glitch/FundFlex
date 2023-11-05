@@ -35,6 +35,7 @@ class CurrencySeeder extends Seeder
             'TWD' => 'New Taiwan Dollar',
             'USD' => 'United States Dollar',
             'ZAR' => 'South African Rand',
+            'NGN' => 'Nigerian Naira',
         ];
 
 

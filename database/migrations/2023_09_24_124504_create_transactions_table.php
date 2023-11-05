@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('reference_id')->nullable();
+            $table->ulid('reference_id')->nullable();
             $table->unsignedBigInteger('sender_id'); // Add sender_id
             $table->unsignedBigInteger('receiver_id'); // Add receiver_id
             $table->string('transaction_type');

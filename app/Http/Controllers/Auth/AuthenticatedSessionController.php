@@ -39,13 +39,10 @@ class AuthenticatedSessionController extends Controller
 
             if ((new TwoFactorAuthentication())->Is2faEnabled($request->user())) {
 
-                /*                 //sends a pair request to google authenticator api also generates a token and stores it to the database
-                $response = (new TwoFactorAuthentication())->store($request->user()); */
-
                 //redirect to the 2fa page with the QR code and token
                 return redirect()->route('two-factor');
             } else {
-                return redirect()->intended(RouteServiceProvider::HOME . '?two_factor=0');
+                return redirect()->intended(RouteServiceProvider::HOME . '?two_factor=0&logged_in=1');
             }
         } else {
             //creates a token for the user

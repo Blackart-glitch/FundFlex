@@ -46,7 +46,7 @@ class BillsSeeder extends Seeder
                 'due_date' => Carbon::now()->addDays(rand(1, 30)),
                 'category_id' => BillCategory::all()->random()->pluck('id')->first(),
                 'status' => 'active',
-                'attachment' => 'https://placehold.co/400',
+                'attachment' => 'https://placehold.co/600',
                 'currency_id' => Currency::all()->random()->pluck('id')->first(),
                 'payment_method' => 'fundflex secure',
                 'reference' => 'fundflex' . rand(100000, 999999),

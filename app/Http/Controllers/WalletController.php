@@ -8,6 +8,7 @@ use App\Http\Requests\UpdatewalletRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\BillController;
+use App\Models\Currency;
 
 class WalletController extends Controller
 {
@@ -17,22 +18,37 @@ class WalletController extends Controller
     {
         $this->user = Auth::user();
     }
+
     /**
-     * Display a listing of the resource.
+     * The index function retrieves the authenticated user, their wallet, bills, and currencies, and passes
+     * them to the wallet view.
+     *
+     * @return a view called 'wallet' with the following data:
      */
     public function index()
     {
         $user = auth()->user();
         $wallet = $this->getWallet($user->id);
         $bills = (new BillController())->getuserbills();
+        $currency = Currency::all();
 
         return view('wallet', [
+            'user' => $user,
             'wallet' => $wallet,
             'bills' => $bills,
+            'currencies' => $currency,
         ]);
     }
 
-    //get wallet details from database for a user
+
+    /**
+     * The getWallet function retrieves the wallet information for a specific user.
+     *
+     * @param user_id The user_id parameter is the unique identifier of the user for whom we want to
+     * retrieve the wallet information.
+     *
+     * @return the wallet object for the specified user ID.
+     */
     public function getWallet($user_id)
     {
         $wallet = wallet::where('user_id', $user_id)->first();

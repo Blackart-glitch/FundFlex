@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PaymentsTopUpRequest;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -9,14 +10,62 @@ use App\Models\BillCategory;
 
 class TransactionController extends Controller
 {
-    protected $user, $PG;
+    protected $user;
+    protected $PG;
+    protected $fundflexaccount;
 
     public function __construct()
     {
-        $this->middleware('auth');
         $this->user = Auth::user();
         $this->PG = 'PayStack';
+        $this->fundflexaccount = 2;
     }
+
+    public function index(Request $request)
+    {
+        $user = Auth::user();
+        $transactions = $this->getTransactions($user);
+
+        return view('history', ['Transactions' => $transactions]);
+    }
+
+    public function topUp(PaymentsTopUpRequest $request)
+    {
+
+
+        //creates a new transaction record in the database
+        $data = [
+            'sender_id' => $this->user->id,
+            'receiver_id' => $this->fundflexaccount,
+            'transaction_type' => 'credit',
+            'description' => 'Top Up fundflex balance',
+            'amount' => $request->amount,
+            'currency_id' => $request->currency,
+            'status' => 'pending',
+            'payment_gateway' => $this->PG,
+        ];
+
+        $log = [];
+    }
+
+    public function withdraw()
+    {
+    }
+
+    public function transfer()
+    {
+    }
+
+    public function payBill()
+    {
+    }
+
+
+    public function payment_gateway_accept()
+    {
+    }
+
+
 
     /**
      * The function retrieves transactions from the database for a specific user, sorted by the most recent
@@ -24,11 +73,16 @@ class TransactionController extends Controller
      *
      * @return a collection of transactions.
      */
-    public function getTransactions()
+    public function getTransactions($user = null)
     {
+
+        if ($user == null) {
+            $user = $this->user;
+        };
+
         //gets the transactions of the user from the database
-        $transactions = Transaction::where('sender_id', $this->user->id)
-            ->orWhere('receiver_id', $this->user->id)
+        $transactions = Transaction::where('sender_id', $user->id)
+            ->orWhere('receiver_id', $user->id)
             ->orderBy('updated_at', 'desc')
             ->get();
 
@@ -49,10 +103,6 @@ class TransactionController extends Controller
             'payment_gateway' => $this->PG
         ]);
 
-        //link the transaction to its category by getting the category id from the database
-
-
-
         return $transaction;
     }
 
@@ -64,5 +114,13 @@ class TransactionController extends Controller
         $transaction->save();
 
         return $transaction;
+    }
+
+    public function log($data)
+    {
+    }
+
+    public function link_txn($txn_id, $bill_id)
+    {
     }
 }
