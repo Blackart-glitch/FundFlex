@@ -1,6 +1,6 @@
 <div>
     <div class="card shadow-sm">
-        <img src="{{ asset($image) }}" alt="{{ explode('.', $image)[0] }}" class="bd-placeholder-img card-img-top"
+        <img src="{{ $image }}" alt="{{ explode('.', $image)[0] }}" class="bd-placeholder-img card-img-top"
             width="100%" height="150" xmlns="http://www.w3.org/2000/svg" role="img"
             aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
         <div class="card-body">

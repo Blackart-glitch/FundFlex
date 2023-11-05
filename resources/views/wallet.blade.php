@@ -34,10 +34,31 @@
 
         {{-- action buttons for the wallet --}}
         <div class="mt-2">
-            <button type="button" class="btn btn-success">deposit</button>
-            <button type="button" class="btn btn-secondary">Transfer</button>
-            <button type="button" class="btn btn-danger">Withdraw</button>
-            <button type="button" class="btn btn-warning">payments</button>
+            <span>
+                <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                    data-bs-target="#depositModal">deposit</button>
+                <x-add-funds :currencies="$currencies">
+                    <x-slot name="email">{{ $user->email }}</x-slot>
+                    <x-slot name="fullname">{{ $user->Firstname . $user->Lastname }}</x-slot>
+                    <x-slot name="walletnumber">{{ $wallet->account_number }}</x-slot>
+                </x-add-funds>
+            </span>
+            <span>
+                <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                    data-bs-target="#TransferModal">Transfer</button>
+                <x-transfer>
+                    <x-slot name="email">{{ $user->email }}</x-slot>
+                </x-transfer>
+            </span>
+            <span>
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                    data-bs-target="#WithdrawModal">Withdraw</button>
+                <x-withdraw>
+                    <x-slot name="email">{{ $user->email }}</x-slot>
+                </x-withdraw>
+            </span>
+            <a href="{{ route('transaction-history') }}" target="_blank" rel="noopener noreferrer"
+                class="btn btn-warning">Payments</a>
             <button type="button" class="btn btn-info">Add a card</button>
         </div>
 
@@ -62,7 +83,7 @@
                             <div class="col">
                                 <x-bill-card>
                                     <x-slot name="id">{{ $bill->id }}</x-slot>
-                                    <x-slot name="image">electricity.png{{-- {{$bill->attachments}} --}}</x-slot>
+                                    <x-slot name="image">{{ $bill->attachment }}</x-slot>
                                     <x-slot name="title">{{ $bill->title }}</x-slot>
                                     <x-slot name="due_date">{{ $bill->due_date }}</x-slot>
                                     <x-slot name="description">{{ $bill->description }}</x-slot>

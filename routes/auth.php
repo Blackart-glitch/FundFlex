@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\BanksController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TwoFactorAuthentication;
 use Illuminate\Support\Facades\Route;
@@ -64,8 +65,18 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
 });
-Route::post('wallet/topup', [TransactionController::class, 'index'])->name('wallet.topup');
+Route::post('wallet/topup', [TransactionController::class, 'topUp'])->name('wallet.topup');
 
 Route::get('two-factor-authentication', [TwoFactorAuthentication::class, 'index'])->name('two-factor');
 
 Route::post('two-factor-authentication', [TwoFactorAuthentication::class, 'index'])->name('two-factor');
+
+Route::post('banks', [BanksController::class, 'get_banks'])->name('banks');
+
+Route::post('verify-wallet', [BanksController::class, 'get_wallet'])->name('verify-wallet');
+
+Route::post('verify-bank-account', [BanksController::class, 'verify_bank_account'])->name('verify-bank-account');
+
+Route::post('wallet/transfer', [TransactionController::class, 'transfer'])->name('wallet.transfer');
+
+Route::post('wallet/withdraw', [TransactionController::class, 'withdraw'])->name('wallet.withdraw');

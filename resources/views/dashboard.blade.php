@@ -19,9 +19,15 @@
                 <strong>Success!</strong> Your account has been verified.
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-        @else
+        @elseif (isset($_GET['logged_in']) && $_GET['logged_in'] == 1)
             <div class="alert alert-success alert-dismissible fade show" tabindex="-1" role="alert">
-                <strong>Success!</strong> welcome back {{ $user->Firstname }}.
+                <strong>success</strong> welcome back {{ $user->Firstname }}.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @elseif (isset($_GET['two_factor']) && $_GET['two_factor'] == 1)
+            <div class="alert alert-warning alert-dismissible fade show" tabindex="-1" role="alert">
+                <strong>Warning</strong> To avoid risk{{ $user->Firstname }}, setup two step verification by clicking here
+                <a href="{{ route('two-factor') }}">here</a>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
@@ -122,7 +128,8 @@
                 </div>
             @endif
             <div class="transaction-card bg-white align-items-center rounded-2 shadow-sm border border-0 p-3 mt-2">
-                <a href="{{ route('transaction-history') }}" class="d-flex justify-content-center">View all transactions</a>
+                <a href="{{ route('transaction-history') }}" class="d-flex justify-content-center">View all
+                    transactions</a>
             </div>
         </div>
 

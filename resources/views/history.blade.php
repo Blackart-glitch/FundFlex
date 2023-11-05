@@ -91,6 +91,7 @@
                     <thead>
                         <tr class="">
                             <th scope="col">#</th>
+                            <th scope="col">Transaction ID</th>
                             <th scope="col">Date</th>
                             <th scope="col">Description</th>
                             <th scope="col">Type</th>
@@ -99,455 +100,69 @@
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
-
                     <tbody>
-                        <tr class="transaction-card">
-                            <th scope="row">1</th>
-                            <td>2021-09-01</td>
-                            <td>Payment from client</td>
-                            <td>Income</td>
-                            <td>$ 1000</td>
-                            <td><strong>
-                                    <span class="text-success material-symbols-outlined">
-                                        check_circle
-                                    </span>
-                                </strong></td>
-                            <td class="gap-2">
-                                <button type="button" class="btn btn-outline-secondary rounded-4" data-bs-toggle="modal"
-                                    data-bs-target="#transactionModal" data-transaction-id="113121121212">
-                                    <span class="material-symbols-outlined">
-                                        visibility
-                                    </span>
-                                </button>
-                                <button type="button" class="btn btn-outline-danger rounded-4" data-bs-toggle="modal"
-                                    data-bs-target="#flagTransactionModal">
-                                    <span class="material-symbols-outlined">
-                                        flag
-                                    </span>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr class="transaction-card">
-                            <th scope="row">2</th>
-                            <td>2021-09-01</td>
-                            <td>Payment from client</td>
-                            <td>Income</td>
-                            <td>$ 1000</td>
-                            <td>
-                                <strong>
-                                    <span class="text-success material-symbols-outlined">
-                                        pending
-                                    </span>
-                                </strong>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-outline-secondary rounded-4" data-bs-toggle="modal"
-                                    data-bs-target="#transactionModal" data-transaction-id="113121121212">
-                                    <span class="material-symbols-outlined">
-                                        visibility
-                                    </span>
-                                </button>
-                            </td>
-                        </tr>
+                        @foreach ($Transactions as $transaction)
+                            <tr class="transaction-card">
+                                <td>{{ $loop->index + 1 }}</td>
+                                <td scope="row">{{ $transaction->id }}</td>
+                                <td>{{ $transaction->updated_at }} </td>
+                                <td>{{ $transaction->description }}</td>
+                                <td>{{ $transaction->transaction_type }} </td>
+                                <td>{{ $transaction->amount }}</td>
+                                <td>
+                                    <strong>
+                                        @switch($transaction->status)
+                                            @case('complete')
+                                                <span class="text-success material-symbols-outlined">
+                                                    check_circle
+                                                </span>
+                                            @break
 
-                        <tr class="transaction-card">
-                            <th scope="row">3</th>
-                            <td>2021-09-02</td>
-                            <td>Online purchase</td>
-                            <td>Expense</td>
-                            <td>$ 500</td>
-                            <td>
-                                <strong>
-                                    <span class="text-warning material-symbols-outlined">
-                                        pending
-                                    </span>
-                                </strong>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-outline-secondary rounded-4" data-bs-toggle="modal"
-                                    data-bs-target="#transactionModal" data-transaction-id="113121121212">
-                                    <span class="material-symbols-outlined">
-                                        visibility
-                                    </span>
-                                </button>
-                            </td>
-                        </tr>
+                                            @case('pending')
+                                                <span class="text-warning material-symbols-outlined">
+                                                    pending
+                                                </span>
+                                            @break
 
-                        <tr class="transaction-card">
-                            <th scope="row">4</th>
-                            <td>2021-09-03</td>
-                            <td>Service charge</td>
-                            <td>Expense</td>
-                            <td>$ 200</td>
-                            <td>
-                                <strong>
-                                    <span class="text-danger material-symbols-outlined">
-                                        error
-                                    </span>
-                                </strong>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-outline-secondary rounded-4" data-bs-toggle="modal"
-                                    data-bs-target="#transactionModal" data-transaction-id="113121121212">
-                                    <span class="material-symbols-outlined">
-                                        visibility
-                                    </span>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr class="transaction-card">
-                            <th scope="row">5</th>
-                            <td>2021-09-01</td>
-                            <td>Payment from client</td>
-                            <td>Income</td>
-                            <td>$ 1000</td>
-                            <td><strong>
-                                    <span class="text-success material-symbols-outlined">
-                                        check_circle
-                                    </span>
-                                </strong></td>
-                            <td>
-                                <button type="button" class="btn btn-outline-secondary rounded-4" data-bs-toggle="modal"
-                                    data-bs-target="#transactionModal" data-transaction-id="113121121212">
-                                    <span class="material-symbols-outlined">
-                                        visibility
-                                    </span>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr class="transaction-card">
-                            <th scope="row">6</th>
-                            <td>2021-09-01</td>
-                            <td>Payment from client</td>
-                            <td>Income</td>
-                            <td>$ 1000</td>
-                            <td>
-                                <strong>
-                                    <span class="text-success material-symbols-outlined">
-                                        pending
-                                    </span>
-                                </strong>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-outline-secondary rounded-4" data-bs-toggle="modal"
-                                    data-bs-target="#transactionModal" data-transaction-id="113121121212">
-                                    <span class="material-symbols-outlined">
-                                        visibility
-                                    </span>
-                                </button>
-                            </td>
-                        </tr>
+                                            @case('failed')
+                                                <span class="text-danger material-symbols-outlined">
+                                                    error
+                                                </span>
+                                            @break
 
-                        <tr class="transaction-card">
-                            <th scope="row">7</th>
-                            <td>2021-09-02</td>
-                            <td>Online purchase</td>
-                            <td>Expense</td>
-                            <td>$ 500</td>
-                            <td>
-                                <strong>
-                                    <span class="text-warning material-symbols-outlined">
-                                        pending
-                                    </span>
-                                </strong>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-outline-secondary rounded-4" data-bs-toggle="modal"
-                                    data-bs-target="#transactionModal" data-transaction-id="113121121212">
-                                    <span class="material-symbols-outlined">
-                                        visibility
-                                    </span>
-                                </button>
-                            </td>
-                        </tr>
+                                            @default
+                                                <span class="text-danger material-symbols-outlined">
+                                                    indeterminate_question_box
+                                                </span>
+                                        @endswitch
 
-                        <tr class="transaction-card">
-                            <th scope="row">8</th>
-                            <td>2021-09-03</td>
-                            <td>Service charge</td>
-                            <td>Expense</td>
-                            <td>$ 200</td>
-                            <td>
-                                <strong>
-                                    <span class="text-danger material-symbols-outlined">
-                                        error
-                                    </span>
-                                </strong>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-outline-secondary rounded-4" data-bs-toggle="modal"
-                                    data-bs-target="#transactionModal" data-transaction-id="113121121212">
-                                    <span class="material-symbols-outlined">
-                                        visibility
-                                    </span>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr class="transaction-card">
-                            <th scope="row">9</th>
-                            <td>2021-09-01</td>
-                            <td>Payment from client</td>
-                            <td>Income</td>
-                            <td>$ 1000</td>
-                            <td><strong>
-                                    <span class="text-success material-symbols-outlined">
-                                        check_circle
-                                    </span>
-                                </strong></td>
-                            <td>
-                                <button type="button" class="btn btn-outline-secondary rounded-4" data-bs-toggle="modal"
-                                    data-bs-target="#transactionModal" data-transaction-id="113121121212">
-                                    <span class="material-symbols-outlined">
-                                        visibility
-                                    </span>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr class="transaction-card">
-                            <th scope="row">10</th>
-                            <td>2021-09-01</td>
-                            <td>Payment from client</td>
-                            <td>Income</td>
-                            <td>$ 1000</td>
-                            <td>
-                                <strong>
-                                    <span class="text-success material-symbols-outlined">
-                                        pending
-                                    </span>
-                                </strong>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-outline-secondary rounded-4" data-bs-toggle="modal"
-                                    data-bs-target="#transactionModal" data-transaction-id="113121121212">
-                                    <span class="material-symbols-outlined">
-                                        visibility
-                                    </span>
-                                </button>
-                            </td>
-                        </tr>
-
-                        <tr class="transaction-card">
-                            <th scope="row">11</th>
-                            <td>2021-09-02</td>
-                            <td>Online purchase</td>
-                            <td>Expense</td>
-                            <td>$ 500</td>
-                            <td>
-                                <strong>
-                                    <span class="text-warning material-symbols-outlined">
-                                        pending
-                                    </span>
-                                </strong>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-outline-secondary rounded-4" data-bs-toggle="modal"
-                                    data-bs-target="#transactionModal" data-transaction-id="113121121212">
-                                    <span class="material-symbols-outlined">
-                                        visibility
-                                    </span>
-                                </button>
-                            </td>
-                        </tr>
-
-                        <tr class="transaction-card">
-                            <th scope="row">12</th>
-                            <td>2021-09-03</td>
-                            <td>Service charge</td>
-                            <td>Expense</td>
-                            <td>$ 200</td>
-                            <td>
-                                <strong>
-                                    <span class="text-danger material-symbols-outlined">
-                                        error
-                                    </span>
-                                </strong>
-                            </td>
-                            <td>
-                                <button class="btn btn-outline-secondary rounded-4">
-                                    <span class="material-symbols-outlined">
-                                        visibility
-                                    </span>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr class="transaction-card">
-                            <th scope="row">13</th>
-                            <td>2021-09-01</td>
-                            <td>Payment from client</td>
-                            <td>Income</td>
-                            <td>$ 1000</td>
-                            <td><strong>
-                                    <span class="text-success material-symbols-outlined">
-                                        check_circle
-                                    </span>
-                                </strong></td>
-                            <td>
-                                <button type="button" class="btn btn-outline-secondary rounded-4" data-bs-toggle="modal"
-                                    data-bs-target="#transactionModal" data-transaction-id="113121121212">
-                                    <span class="material-symbols-outlined">
-                                        visibility
-                                    </span>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr class="transaction-card">
-                            <th scope="row">14</th>
-                            <td>2021-09-01</td>
-                            <td>Payment from client</td>
-                            <td>Income</td>
-                            <td>$ 1000</td>
-                            <td>
-                                <strong>
-                                    <span class="text-success material-symbols-outlined">
-                                        pending
-                                    </span>
-                                </strong>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-outline-secondary rounded-4" data-bs-toggle="modal"
-                                    data-bs-target="#transactionModal" data-transaction-id="113121121212">
-                                    <span class="material-symbols-outlined">
-                                        visibility
-                                    </span>
-                                </button>
-                            </td>
-                        </tr>
-
-                        <tr class="transaction-card">
-                            <th scope="row">15</th>
-                            <td>2021-09-02</td>
-                            <td>Online purchase</td>
-                            <td>Expense</td>
-                            <td>$ 500</td>
-                            <td>
-                                <strong>
-                                    <span class="text-warning material-symbols-outlined">
-                                        pending
-                                    </span>
-                                </strong>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-outline-secondary rounded-4" data-bs-toggle="modal"
-                                    data-bs-target="#transactionModal" data-transaction-id="113121121212">
-                                    <span class="material-symbols-outlined">
-                                        visibility
-                                    </span>
-                                </button>
-                            </td>
-                        </tr>
-
-                        <tr class="transaction-card">
-                            <th scope="row">16</th>
-                            <td>2021-09-03</td>
-                            <td>Service charge</td>
-                            <td>Expense</td>
-                            <td>$ 200</td>
-                            <td>
-                                <strong>
-                                    <span class="text-danger material-symbols-outlined">
-                                        error
-                                    </span>
-                                </strong>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-outline-secondary rounded-4" data-bs-toggle="modal"
-                                    data-bs-target="#transactionModal" data-transaction-id="113121121212">
-                                    <span class="material-symbols-outlined">
-                                        visibility
-                                    </span>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr class="transaction-card">
-                            <th scope="row">17</th>
-                            <td>2021-09-01</td>
-                            <td>Payment from client</td>
-                            <td>Income</td>
-                            <td>$ 1000</td>
-                            <td><strong>
-                                    <span class="text-success material-symbols-outlined">
-                                        check_circle
-                                    </span>
-                                </strong></td>
-                            <td>
-                                <button type="button" class="btn btn-outline-secondary rounded-4" data-bs-toggle="modal"
-                                    data-bs-target="#transactionModal" data-transaction-id="113121121212">
-                                    <span class="material-symbols-outlined">
-                                        visibility
-                                    </span>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr class="transaction-card">
-                            <th scope="row">18</th>
-                            <td>2021-09-01</td>
-                            <td>Payment from client</td>
-                            <td>Income</td>
-                            <td>$ 1000</td>
-                            <td>
-                                <strong>
-                                    <span class="text-success material-symbols-outlined">
-                                        pending
-                                    </span>
-                                </strong>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-outline-secondary rounded-4" data-bs-toggle="modal"
-                                    data-bs-target="#transactionModal" data-transaction-id="113121121212">
-                                    <span class="material-symbols-outlined">
-                                        visibility
-                                    </span>
-                                </button>
-                            </td>
-                        </tr>
-
-                        <tr class="transaction-card">
-                            <th scope="row">19</th>
-                            <td>2021-09-02</td>
-                            <td>Online purchase</td>
-                            <td>Expense</td>
-                            <td>$ 500</td>
-                            <td>
-                                <strong>
-                                    <span class="text-warning material-symbols-outlined">
-                                        pending
-                                    </span>
-                                </strong>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-outline-secondary rounded-4" data-bs-toggle="modal"
-                                    data-bs-target="#transactionModal" data-transaction-id="113121121212">
-                                    <span class="material-symbols-outlined">
-                                        visibility
-                                    </span>
-                                </button>
-                            </td>
-                        </tr>
-
-                        <tr class="transaction-card">
-                            <th scope="row">20</th>
-                            <td>2021-09-03</td>
-                            <td>Service charge</td>
-                            <td>Expense</td>
-                            <td>$ 200</td>
-                            <td>
-                                <strong>
-                                    <span class="text-danger material-symbols-outlined">
-                                        error
-                                    </span>
-                                </strong>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-outline-secondary rounded-4" data-bs-toggle="modal"
-                                    data-bs-target="#transactionModal" data-transaction-id="113121121212">
-                                    <span class="material-symbols-outlined">
-                                        visibility
-                                    </span>
-                                </button>
-                            </td>
-                        </tr>
+                                    </strong>
+                                </td>
+                                <td class="gap-2">
+                                    <button type="button" class="btn btn-outline-secondary rounded-4"
+                                        data-bs-toggle="modal" data-bs-target="#transactionModal"
+                                        data-transaction-id="{{ $transaction->id }}">
+                                        <span class="material-symbols-outlined">
+                                            visibility
+                                        </span>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-danger rounded-4" data-bs-toggle="modal"
+                                        data-bs-target="#flagTransactionModal" data-transaction-id="{{ $transaction->id }}">
+                                        <span class="material-symbols-outlined">
+                                            flag
+                                        </span>
+                                    </button>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
+
+                {{-- pagination --}}
+                {{--
+                <div class="d-flex justify-content-center">
+                    {{ $transactions->links() }}
+                </div> --}}
             </div>
         </div>
         <x-receipt />

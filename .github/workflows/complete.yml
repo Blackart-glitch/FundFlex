@@ -35,16 +35,3 @@ jobs:
       - name: Directory Permissions
         run: chmod -R 777 storage bootstrap/cache
 
-      - name: Create Tag
-        run: git tag -a v1.0 -m "Release v1.0"
-        if: github.ref == 'refs/heads/Production'  # Only create a tag for the Production branch
-
-      - name: Push Tag
-        run: git push origin v1.0
-        if: github.ref == 'refs/heads/Production'  # Only push the tag for the Production branch
-
-      - name: Create GitHub Release
-        id: create_release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: ./ # Include your release assets here
