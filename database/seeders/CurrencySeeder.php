@@ -41,8 +41,8 @@ class CurrencySeeder extends Seeder
 
         foreach ($currencies as $code => $name) {
             Currency::create([
-                'currency_code' => $code,
-                'currency_name' => $name,
+                'code' => $code,
+                'name' => $name,
             ]);
         }
     }

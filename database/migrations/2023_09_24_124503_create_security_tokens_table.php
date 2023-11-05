@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('token_value');
-            $table->string('token_type')->default('email_token');
+            $table->string('token_type');
             $table->timestamp('expiration_time');
             $table->timestamps();
 

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('description')->nullable();
             $table->decimal('amount', 10, 2);
+            $table->bigInteger('currency_id')->unsigned();
             $table->date('due_date');
             $table->string('status')->default('active');
             $table->string('payment_method')->nullable();
@@ -31,6 +32,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('category_id')->references('id')->on('bill_categories');
+            $table->foreign('currency_id')->references('id')->on('currencies');
         });
     }
 

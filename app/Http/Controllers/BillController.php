@@ -26,10 +26,10 @@ class BillController extends Controller
     {
         $user = Auth::user();
 
-        $userBills = $user->bills;
+        $userBills = collect($user->bills);
 
         $bills = [
-            'user' => $userBills->all(),
+            'user' => $userBills,
             'all' => Bills::all(),
         ];
 
