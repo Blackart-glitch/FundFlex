@@ -50,7 +50,7 @@
             </div>
             <div class="col-lg-9">
                 <div class="bg-info chat-box p-2">
-                    <h3>Chat Box<span class="badge bg-success">online</span></h3>
+                    <h3>Customer Support<span class="badge bg-success">online</span></h3>
                 </div>
                 <div class="row bg-white p-3">
                     <div class="col-lg-6">
