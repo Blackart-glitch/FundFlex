@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\WalletController;
 use App\Http\Controllers\BillController;
+use App\Http\Controllers\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,9 +35,7 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::get('/wallet', [WalletController::class, 'index'])->name('wallet');
 
     // Transaction History
-    Route::get('/history', function () {
-        return view('history');
-    })->name('transaction-history');
+    Route::get('/history', [TransactionController::class, 'index'])->name('transaction-history');
 
     // Settings
     Route::get('/settings', function () {
