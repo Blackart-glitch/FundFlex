@@ -6,7 +6,7 @@ name: Build and deploy PHP app to Azure Web App - fundflex
 on:
   push:
     branches:
-      - Production
+      - production
   workflow_dispatch:
 
 jobs:
@@ -62,5 +62,5 @@ jobs:
         with:
           app-name: 'fundflex'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2F106A75DF10424981AEB861F416CBA4 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_C6131AE5332F43819523179B48C9951B }}
           package: .
