@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+
+use App\Models\Bills;
 
 class User extends Authenticatable
 {
@@ -15,18 +17,24 @@ class User extends Authenticatable
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<int, string>
+     * @var array<string, mixed>
      */
     protected $fillable = [
-        'name',
+        'Firstname',
+        'Lastname',
+        'Username',
+        'Phone',
         'email',
         'password',
+        'role',
+        'status',
+        'avatar',
     ];
 
     /**
      * The attributes that should be hidden for serialization.
      *
-     * @var array<int, string>
+     * @var array<string>
      */
     protected $hidden = [
         'password',
@@ -42,4 +50,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function bills()
+    {
+        return $this->belongsToMany(Bills::class, 'bill_mappings', 'user_id', 'bill_id');
+    }
 }

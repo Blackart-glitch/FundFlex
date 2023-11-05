@@ -1,150 +1,130 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.sidebar')
+@section('sidebar.content')
+    <style>
+        .transaction-card {
+            transition: all 0.3s;
+        }
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fund Wallet App Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
-</head>
+        .transaction-card:hover {
+            transform: scale(1.05);
+            /* Increase the size */
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+            /* Apply a larger box shadow */
+        }
+    </style>
+    <div>
 
-<body class="bg-gray-100 font-sans">
-
-    <div class="flex h-screen bg-gray-200">
-        <!-- Sidebar -->
-        <div class="flex-shrink-0 w-56 bg-white border-r">
-            <div class="">
-                <img src="{{ asset('logo.png') }}" alt="logo" class="w-40 h-36 mx-auto">
-                <!-- <div class="text-xl font-semibold text-gray-800">Babatunde</div>
-                <a href="#" class="flex items-center mt-2 text-gray-600 hover:text-indigo-600">
-                    <span class="mr-2">
-                        Profile
-                    </span>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
-                        <path fill-rule="evenodd" d="M5.293 9.293a1 1 0 011.414 0L10 12.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg>
-                </a> -->
+        @if (isset($_GET['verified']) && $_GET['verified'] == 1)
+            <div class="alert alert-success alert-dismissible fade show" tabindex="-1" role="alert">
+                <strong>Success!</strong> Your account has been verified.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-            <nav class="mt-6">
-                <a href="/dashboard" class="flex items-center px-4 py-2 text-gray-600 hover:text-indigo-600 hover:bg-gray-100">
-                    <img src="{{ asset('dashboard.png') }}" alt="Dashboard" class="w-6 h-6 mr-2">
-                    Dashboard
-                </a>
-                <a href="/currency-rate" class="flex items-center px-4 py-2 text-gray-600 hover:text-indigo-600 hover:bg-gray-100 py-8">
-                    <img src="{{ asset('rate.png') }}" alt="Currency Rate" class="w-6 h-6 mr-2">
-                    Currency Rate
-                </a>
-                <a href="/transactions" class="flex items-center px-4 py-2 text-gray-600 hover:text-indigo-600 hover:bg-gray-100 py-8">
-                    <img src="{{ asset('transaction.png') }}" alt="Transactions" class="w-6 h-6 mr-2">
-                    Transactions
-                </a>
-                <a href="/notification" class="flex items-center px-4 py-2 text-gray-600 hover:text-indigo-600 hover:bg-gray-100 py-8">
-                    <img src="{{ asset('notify.png') }}" alt="Notification" class="w-6 h-6 mr-2">
-                    Notification
-                </a>
-                <a href="/support" class="flex items-center px-4 py-2 text-gray-600 hover:text-indigo-600 hover:bg-gray-100 py-8">
-                    <img src="{{ asset('support.png') }}" alt="Support" class="w-6 h-6 mr-2">
-                    Support
-                </a>
-                <a href="/" class="flex items-center px-4 py-2 text-gray-600 hover:text-indigo-600 hover:bg-gray-100 py-8">
-                    <img src="{{ asset('logout.png') }}" alt="Log Out" class="w-6 h-6 mr-2">
-                    Log Out
-                </a>
-            </nav>
+        @else
+            <div class="alert alert-success alert-dismissible fade show" tabindex="-1" role="alert">
+                <strong>Success!</strong> welcome back {{ $user->Firstname }}.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        <div class="row justify-content-evenly">
+            <div class="col-lg-5 bg-white p-2 rounded shadow-lg">
+                <div class="card">
+                    <div class="card-body" style="background-color: rgb(255, 215, 139)">
+                        <h4 class="card-title">YOUR WALLET</h4>
+                        <hr>
+                        <div class="card-logo">
+                            <!-- Replace this with MasterCard logo -->
+                            <img src="{{ asset('icons/wallet.gif') }}" alt="FundFlex Logo">
+                        </div>
+                        @if ($wallet)
+                            <div class="card-number">
+                                <!-- Replace this with the card number -->
+                                <p> {{ $wallet->account_number }} </p>
+                            </div>
+                            <div class="card-holder">
+                                <!-- Replace this with the cardholder's name -->
+                                <p> {{ $user->Firstname . ' ' . $user->Lastname }} </p>
+                            </div>
+                            <div class="card-expiry ">
+                                <span class="text-danger fw-bold">Change since : </span>
+                                <span class="text-success fw-bold">{{ $wallet->updated_at }}</span>
+                            </div>
+                        @else
+                            <p>You don't have a wallet yet...</p>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 bg-white p-2 rounded shadow-lg">
+                <h3>Spendings this month</h3>
+                <div class="mt-3">
+                    <p class="text-warning fw-bold">You don't have any purchases yet</p>
+                </div>
+            </div>
         </div>
-        <!-- Main Content -->
-        <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
-            <div class="px-6 py-8">
-                <div class="flex items-center justify-between">
-                    <h1 class="text-2xl font-semibold text-gray-800">Welcome Timothy</h1>
-                    <p class="text-gray-600">Make your seamless transfer today!</p>
+
+        <div class="container mt-3 p-2" tabindex="-1" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+            <h2 class="h3 text-center">Transaction History</h2>
+            <div class="row align-items-center bg-light shadow-sm border border-0 p-3 mt-2 overflow-auto">
+                <div class="col-lg-3 col-md-3">
+                    <strong class="font-weight-bold">Description</strong>
                 </div>
-                <div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                    <!-- Quick Transfer -->
-                    <div class="p-6 bg-white rounded-lg shadow-lg">
-                        <div class="flex items-center justify-between">
-                            <h2 class="text-xl font-semibold text-gray-800">Make a quick transfer</h2>
-                            <img src="{{ asset('transfer.png') }}" alt="Quick Transfer" class="w-8 h-8">
-                        </div>
-                        <p class="mt-4 text-gray-600">Send money to all individuals across the continent.</p>
-                        <div class="mt-6">
-                            <button class="px-4 py-2 text-white bg-indigo-600 rounded-full hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-indigo-200">
-                                Transfer money
-                            </button>
-                        </div>
-                    </div>
-                    <!-- Custom Request -->
-                    <div class="p-6 bg-white rounded-lg shadow-lg">
-                        <div class="flex items-center justify-between">
-                            <h2 class="text-xl font-semibold text-gray-800">Make a custom request</h2>
-                            <img src="{{ asset('customise.png') }}" alt="Custom Request" class="w-8 h-8">
-                        </div>
-                        <p class="mt-4 text-gray-600">We offer you the opportunity to make a currency request.</p>
-                        <div class="mt-6">
-                            <button class="px-4 py-2 text-white bg-indigo-600 rounded-full hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-indigo-200">
-                                Customized request
-                            </button>
-                        </div>
-                    </div>
-                    <!-- View Rate -->
-                    <div class="p-6 bg-white rounded-lg shadow-lg">
-                        <div class="flex items-center justify-between">
-                            <h2 class="text-xl font-semibold text-gray-800">View Currency Rates</h2>
-                            <img src="{{ asset('bankrate.png') }}" alt="Currency Rates" class="w-8 h-8">
-                        </div>
-                        <p class="mt-4 text-gray-600">Get up-to-date currency rates for all your transactions.</p>
-                        <div class="mt-6">
-                            <button class="px-4 py-2 text-white bg-indigo-600 rounded-full hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-indigo-200">
-                                View rates
-                            </button>
-                        </div>
-                    </div>
+                <div class="col-lg-2 col-md-1">
+                    <strong class="font-weight-bold">Type</strong>
                 </div>
-                <!-- Recent Transactions -->
-                <div class="mt-8">
-                    <h2 class="text-xl font-semibold text-gray-800">Recent Transactions</h2>
-                    <div class="mt-4 bg-white rounded-lg shadow-lg">
-                        <div class="p-4">
-                            <!-- Transaction 1 -->
-                            <div class="flex justify-between mb-4">
-                                <div>
-                                    <h3 class="text-lg font-semibold text-gray-800">12 September</h3>
-                                    <p class="text-gray-600">You paid 10,000 NGN to Jane Doe</p>
-                                </div>
-                                <p class="text-green-600">+10,000 NGN</p>
-                            </div>
-                            <!-- Transaction 2 -->
-                            <div class="flex justify-between mb-4">
-                                <div>
-                                    <h3 class="text-lg font-semibold text-gray-800">12 September</h3>
-                                    <p class="text-gray-600">You paid 10,000 NGN to Jane Doe</p>
-                                </div>
-                                <p class="text-green-600">+10,000 NGN</p>
-                            </div>
-                            <!-- Transaction 3 -->
-                            <div class="flex justify-between mb-4">
-                                <div>
-                                    <h3 class="text-lg font-semibold text-gray-800">12 September</h3>
-                                    <p class="text-gray-600">You paid 10,000 NGN to Jane Doe</p>
-                                </div>
-                                <p class="text-green-600">+10,000 NGN</p>
-                            </div>
-                            <!-- Transaction 4 -->
-                            <div class="flex justify-between mb-4">
-                                <div>
-                                    <h3 class="text-lg font-semibold text-gray-800">12 September</h3>
-                                    <p class="text-gray-600">You paid 10,000 NGN to Jane Doe</p>
-                                </div>
-                                <p class="text-green-600">+10,000 NGN</p>
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-lg-4 col-md-4">
+                    <strong class="font-weight-bold">Amount</strong>
+                </div>
+                <div class="col-lg-2 col-md-2">
+                    <strong class="font-weight-bold">Status</strong>
+                </div>
+                <div class="col-lg-1 col-md-1">
+                    <strong class="font-weight-bold">Action</strong>
                 </div>
             </div>
-        </main>
+            <!-- First transaction card -->
+            @if ($transactions->isEmpty() !== true)
+                @foreach ($transactions as $transaction)
+                    <div
+                        class="row transaction-card bg-white align-items-center rounded-2 shadow-sm border border-0 p-3 mt-2">
+                        <div class="col-lg-3 col-md-6">
+                            <p class="mb-0">
+                                {{ implode(' ', array_slice(str_word_count($transaction->description, 1), 0, 4)) . ' ...' }}
+                            </p>
+                            <p class="mb-0"><time datetime="2023-10-01"> {{ $transaction->updated_at }} </time></p>
+                        </div>
+                        <div class="col-lg-2 col-md-6 text-danger">
+                            <p class="mb-0">{{ $transaction->transaction_type }}</p>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <p class="mb-0">{{ 'NGN ' . $transaction->amount }} </p>
+                        </div>
+                        <div class="col-lg-2 col-md-6">
+                            <span class="text-success material-symbols-outlined">
+                                @if ($transaction->status == 'success')
+                                    check_circle
+                                @elseif ($transaction->status == 'pending')
+                                    pending
+                                @else
+                                    error
+                                @endif
+                            </span>
+                        </div>
+                        <div class="col-lg-1 col-md-6">
+                            <span class="material-symbols-outlined btn btn-outline-info" style="border: none">
+                                info
+                            </span>
+                        </div>
+                    </div>
+                @endforeach
+            @else
+                <div class="transaction-card bg-white align-items-center rounded-2 shadow-sm border border-0 p-3 mt-2">
+                    <p class="text-dark"> You have no transactions yet. Go ahead and settle a bill</p>
+                </div>
+            @endif
+            <div class="transaction-card bg-white align-items-center rounded-2 shadow-sm border border-0 p-3 mt-2">
+                <a href="{{ route('transaction-history') }}" class="d-flex justify-content-center">View all transactions</a>
+            </div>
+        </div>
+
     </div>
-
-</body>
-
-</html>
+@endsection

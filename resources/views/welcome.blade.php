@@ -26,7 +26,7 @@
                 <h1 class="display-4 fw-normal">Discover the Future of University Finances</h1>
                 <p class="lead fw-normal">Simplify your university financial experience with FundFlex. Join us and
                     experience the future of online transactions.</p>
-                <a href="/signup" class="btn btn-outline-secondary">Sign Up Now</a>
+                <a href="{{ route('register') }}" class="btn btn-outline-secondary">Sign Up Now</a>
             </div>
             <div class="product-device shadow-sm d-none d-md-block"></div>
             <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
