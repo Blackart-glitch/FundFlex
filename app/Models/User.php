@@ -10,7 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 use App\Models\Bills;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -54,5 +54,32 @@ class User extends Authenticatable
     public function bills()
     {
         return $this->belongsToMany(Bills::class, 'bill_mappings', 'user_id', 'bill_id');
+    }
+
+    public function hasRole($role = null)
+    {
+        if ($role == null) {
+            return $this->role;
+        } else {
+            true;
+        }
+    }
+
+    public function hasVerifiedEmail()
+    {
+        if ($this->email_verified_at !== null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function active()
+    {
+        if ($this->status == 'active') {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

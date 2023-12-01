@@ -12,7 +12,7 @@
             <div class="bg-dark p-3 btn btn-collapse text-white text-center rounded" data-bs-toggle="collapse"
                 data-bs-target="#sidebar">
                 <h2>Fundflex</h2>
-                <small>By the Lagos State University</small>
+                <small>Empowering your finances</small>
             </div>
 
             <div class="collapse show" id="sidebar">

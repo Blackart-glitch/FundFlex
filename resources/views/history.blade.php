@@ -101,18 +101,21 @@
                         </tr>
                     </thead>
                     <tbody>
+
                         @foreach ($Transactions as $transaction)
                             <tr class="transaction-card">
                                 <td>{{ $loop->index + 1 }}</td>
                                 <td scope="row">{{ $transaction->id }}</td>
                                 <td>{{ $transaction->updated_at }} </td>
                                 <td>{{ $transaction->description }}</td>
-                                <td>{{ $transaction->transaction_type }} </td>
-                                <td>{{ $transaction->amount }}</td>
+                                <td>{!! $transaction->transaction_type == 'debit'
+                                    ? '<strong class="text-danger">' . $transaction->transaction_type . '</strong>'
+                                    : '<strong class="text-success">' . $transaction->transaction_type . '</strong>' !!} </td>
+                                <td>{{ $transaction->currency . ' ' . $transaction->amount }}</td>
                                 <td>
                                     <strong>
                                         @switch($transaction->status)
-                                            @case('complete')
+                                            @case('success')
                                                 <span class="text-success material-symbols-outlined">
                                                     check_circle
                                                 </span>
@@ -135,12 +138,11 @@
                                                     indeterminate_question_box
                                                 </span>
                                         @endswitch
-
                                     </strong>
                                 </td>
                                 <td class="gap-2">
                                     <button type="button" class="btn btn-outline-secondary rounded-4"
-                                        data-bs-toggle="modal" data-bs-target="#transactionModal"
+                                        data-bs-toggle="modal" data-bs-target="#transactionModal{{ $transaction->id }}"
                                         data-transaction-id="{{ $transaction->id }}">
                                         <span class="material-symbols-outlined">
                                             visibility
@@ -154,18 +156,14 @@
                                     </button>
                                 </td>
                             </tr>
+                            <div>
+                                <x-receipt :transaction="$transaction" />
+                                <x-flagging :transaction="$transaction" />
+                            </div>
                         @endforeach
                     </tbody>
                 </table>
-
-                {{-- pagination --}}
-                {{--
-                <div class="d-flex justify-content-center">
-                    {{ $transactions->links() }}
-                </div> --}}
             </div>
         </div>
-        <x-receipt />
-        <x-flagging />
     </div>
 @endsection

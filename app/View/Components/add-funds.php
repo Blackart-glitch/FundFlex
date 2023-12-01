@@ -29,6 +29,6 @@ class AddFunds extends Component
      */
     public function render(): View
     {
-        return view('component.add-funds');
+        return view('components.add-funds');
     }
 }

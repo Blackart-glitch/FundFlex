@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('account_number')->unique();
             $table->decimal('balance', 10, 2)->default(0.00);
             $table->string('status')->default('active'); // Add the 'status' column with a default value of 'active'
-            $table->string('currency')->default('NGN'); // Add the 'currency' column with a default value of 'USD' column with a default value of 'savings'
+            $table->integer('currency')->default(23);
             $table->timestamps();
 
             // Define foreign key constraint

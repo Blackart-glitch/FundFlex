@@ -10,17 +10,22 @@
             </div>
             <div class="modal-body">
                 <!-- Form for flagging the transaction -->
-                <form>
+                <form action="{{ route('transaction.flag') }}" method="post">
+                    @csrf
+
+                    <input type="hidden" name="transaction_id" id="transaction_id" value="{{ $transaction->id }}">
+
                     <div class="form-group">
                         <label for="reason">Reason for Flagging:</label>
-                        <textarea class="form-control" id="reason" rows="3"
+                        <textarea class="form-control" id="reason" name="reason" rows="3"
                             placeholder="Enter the reason for flagging this transaction" required></textarea>
                     </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-outline-danger">Flag Transaction</button>
+                    </div>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger">Flag Transaction</button>
             </div>
         </div>
     </div>

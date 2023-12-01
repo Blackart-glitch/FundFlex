@@ -36,4 +36,11 @@ class BillController extends Controller
 
         return $bills;
     }
+
+    public function getBill($id)
+    {
+        $bill = Bills::find($id);
+
+        return $bill;
+    }
 }

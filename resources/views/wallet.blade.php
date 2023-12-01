@@ -6,13 +6,22 @@
         <div class="row justify-content-evenly">
             <div class="col-lg-5 bg-white p-2 rounded shadow-lg">
                 <h2>Available Balance</h2>
-                <h3>{{ $wallet->currency . ' ' . number_format($wallet->balance, 2, '.', ' ') }}</h3>
+                @if ($wallet)
+                    <h3>{{ $wallet->currency == null ? '0' : $wallet->currency . ' ' . number_format($wallet->balance, 2, '.', ' ') }}
+                    </h3>
+                @else
+                    <h3>0.00</h3>
+                @endif
             </div>
             <div class="col-lg-6 bg-white p-2 rounded shadow-lg">
                 <h3>Your wallet ID: </h3>
 
                 <div class="gap-2">
-                    <span>{{ $wallet->account_number }} </span>
+                    @if ($wallet)
+                        <span>{{ $wallet->account_number }} </span>
+                    @else
+                        <p class="text-danger fw-bolder"> Unknown</p>
+                    @endif
                     <span class="material-symbols-outlined btn btn-warning">
                         content_copy
                     </span>
@@ -23,11 +32,14 @@
                             download_for_offline
                         </span>
                     </button>
-                    <button type="button" class="btn btn-outline-success">Generate
-                        <span class="material-symbols-outlined">
-                            frame_reload
-                        </span>
-                    </button>
+                    <form action="{{ route('wallet.generate') }}" method="post">
+                        @csrf
+                        <button type="submit" class="btn btn-outline-success">Generate
+                            <span class="material-symbols-outlined">
+                                frame_reload
+                            </span>
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -37,11 +49,33 @@
             <span>
                 <button type="button" class="btn btn-success" data-bs-toggle="modal"
                     data-bs-target="#depositModal">deposit</button>
-                <x-add-funds :currencies="$currencies">
-                    <x-slot name="email">{{ $user->email }}</x-slot>
-                    <x-slot name="fullname">{{ $user->Firstname . $user->Lastname }}</x-slot>
-                    <x-slot name="walletnumber">{{ $wallet->account_number }}</x-slot>
-                </x-add-funds>
+                @if ($wallet && $user)
+                    <x-add-funds :currencies="$currencies">
+                        <x-slot name="email">{{ $user->email }}</x-slot>
+                        <x-slot name="fullname">{{ $user->Firstname . $user->Lastname }}</x-slot>
+                        <x-slot name="walletnumber">{{ $wallet->account_number }}</x-slot>
+                    </x-add-funds>
+                @else
+                    <div class="modal fade" id="depositModal" tabindex="-1" data-bs-backdrop="static"
+                        data-bs-keyboard="false" role="dialog" aria-labelledby="depositTitleModal" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modalTitleId">Sorry!!</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    You can't perform this function at this time because you have not created a wallet yet.
+                                    Please create a wallet first.
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
             </span>
             <span>
                 <button type="button" class="btn btn-secondary" data-bs-toggle="modal"

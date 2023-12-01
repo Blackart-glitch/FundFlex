@@ -31,6 +31,19 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" tabindex="-1" role="alert">
+                <strong>Failed!</strong> {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @elseif (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" tabindex="-1" role="alert">
+                <strong>Success!</strong> {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
         <div class="row justify-content-evenly">
             <div class="col-lg-5 bg-white p-2 rounded shadow-lg">
                 <div class="card">
@@ -62,8 +75,16 @@
             </div>
             <div class="col-lg-6 bg-white p-2 rounded shadow-lg">
                 <h3>Spendings this month</h3>
-                <div class="mt-3">
-                    <p class="text-warning fw-bold">You don't have any purchases yet</p>
+                <div class="mt-3 card">
+                    <div class="card-body">
+                        @if (!$spendings)
+                            <p class="text-warning fw-bold">You don't have any purchases yet</p>
+                        @else
+                            <canvas id="myChart" aria-label="Spendings for the month" role="img">
+                                <p class="text-warning fw-bold">Couldn't process your stats</p>
+                            </canvas>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>
@@ -98,29 +119,47 @@
                             </p>
                             <p class="mb-0"><time datetime="2023-10-01"> {{ $transaction->updated_at }} </time></p>
                         </div>
-                        <div class="col-lg-2 col-md-6 text-danger">
-                            <p class="mb-0">{{ $transaction->transaction_type }}</p>
-                        </div>
+                        @if ($transaction->transaction_type == 'debit')
+                            <div class="col-lg-2 col-md-6 fw-bolder text-danger">
+                                <p class="mb-0">Debit</p>
+                            </div>
+                        @elseif ($transaction->transaction_type == 'credit')
+                            <div class="col-lg-2 col-md-6 fw-bolder text-success">
+                                <p class="mb-0">Credit</p>
+                            </div>
+                        @else
+                            <div class="col-lg-2 col-md-6 fw-bolder text-warning">
+                                <p class="mb-0">Unknown</p>
+                            </div>
+                        @endif
                         <div class="col-lg-4 col-md-6">
-                            <p class="mb-0">{{ 'NGN ' . $transaction->amount }} </p>
+                            <p class="mb-0">{{ $transaction->currency . ' ' . $transaction->amount }} </p>
                         </div>
                         <div class="col-lg-2 col-md-6">
-                            <span class="text-success material-symbols-outlined">
-                                @if ($transaction->status == 'success')
+                            @if ($transaction->status == 'success')
+                                <span class="text-success material-symbols-outlined">
                                     check_circle
-                                @elseif ($transaction->status == 'pending')
+                                </span>
+                            @elseif ($transaction->status == 'pending')
+                                <span class="text-warning material-symbols-outlined">
                                     pending
-                                @else
+                                </span>
+                            @else
+                                <span class="text-danger material-symbols-outlined">
                                     error
-                                @endif
-                            </span>
+                                </span>
+                            @endif
                         </div>
                         <div class="col-lg-1 col-md-6">
-                            <span class="material-symbols-outlined btn btn-outline-info" style="border: none">
-                                info
-                            </span>
+                            <button class="btn btn-outline-info" data-bs-toggle="modal"
+                                data-bs-target="#transactionModal{{ $transaction->id }}" style="border:none;">
+                                <span class="material-symbols-outlined">
+                                    info
+                                </span>
+                            </button>
                         </div>
                     </div>
+                    <x-receipt :transaction="$transaction" />
                 @endforeach
             @else
                 <div class="transaction-card bg-white align-items-center rounded-2 shadow-sm border border-0 p-3 mt-2">
@@ -132,6 +171,32 @@
                     transactions</a>
             </div>
         </div>
-
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('myChart');
+        const spendings = JSON.parse('{{ $spendings }}');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Week1', 'Week2', 'Week3', 'Week4'],
+                datasets: [{
+                    label: 'Spendings this ' + new Date().toLocaleString('default', {
+                        month: 'long'
+                    }) + ' (in NGN)',
+                    data: spendings,
+                    fill: false,
+                    borderColor: 'orange',
+                    tension: 0.5
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
 @endsection

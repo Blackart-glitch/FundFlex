@@ -185,4 +185,19 @@ return [
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
+
+    /**
+     * Paystack API keys
+     * this is the public and secret key for paystack
+     * you can get yours from https://dashboard.paystack.com/#/settings/developer
+     */
+    'paystack.secret_key' => env('PAYSTACK_SECRET_KEY'),
+    'paystack.public_key' => env('PAYSTACK_PUBLIC_KEY'),
+
+    /**
+     * Paystack payment URL
+     * this is the url for paystack payment gateway
+     * you can get yours from https://dashboard.paystack.com/#/settings/developer
+     */
+    'paystack.payment_url' => env('PAYSTACK_PAYMENT_URL'),
 ];
