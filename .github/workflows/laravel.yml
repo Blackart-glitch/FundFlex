@@ -28,8 +28,9 @@ jobs:
       run: |
           echo "Setting up project environment variables"
           echo ${{ secrets.ENV_FILE }} > .env
-          echo "displaying .env file"
-          cat .env
+
+    - name: dUMP .ENV
+      run: cat .env
 
     - name: Generate key
       run: php artisan key:generate
