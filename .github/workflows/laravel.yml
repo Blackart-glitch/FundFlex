@@ -28,7 +28,11 @@ jobs:
           echo ${{ secrets.ENV_FILE }} > .env
 
     - name: dump .ENV
-      run: echo < .env
+      run: |
+          cat .env
+          echo "Dumping .env.example"
+          cat .env.example
+
 
     - name: Generate key
       run: php artisan key:generate
