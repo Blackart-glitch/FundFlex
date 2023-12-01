@@ -16,14 +16,15 @@
     </style>
     <div class="modal fade" id="{{ 'paymentmodal' . $id }}" tabindex="-1" role="dialog"
         aria-labelledby="{{ 'paymentmodaltitle' . $id }}" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="{{ 'paymentmodaltitle' . $id }}">PAYMENT FOR {{ strtoupper($title) }}
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="" method="post">
+                <form action="{{ route('wallet.bill') }}" method="post">
+                    @csrf
                     <div class="modal-body">
                         <div class="form-group">
                             <input type="hidden" name="bill_id" value="{{ $id }}">

@@ -7,6 +7,8 @@ use App\Http\Controllers\WalletController;
 use App\Http\Controllers\BillController;
 use App\Http\Controllers\TransactionController;
 
+use Illuminate\Http\Request;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -60,6 +62,33 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // Promotions
+    Route::get(
+        '/promotions',
+        function () {
+            return view('promotions');
+        }
+    )->name('promotions');
+
+    Route::get('/services', function () {
+
+        $bills = (new BillController())->getallbills();
+
+        return view('services', [
+            'bills' => $bills,
+        ]);
+    })->name('services');
+
+
+
+    Route::get(
+        '/processing',
+        function (Request $request) {
+            session()->reflash();
+            return view('processing');
+        }
+    )->name('processing');
 });
 
 require __DIR__ . '/auth.php';
@@ -67,19 +96,3 @@ require __DIR__ . '/auth.php';
 
 
 //require __DIR__ . '/test-auth.php';
-
-
-
-// Promotions
-Route::get('/promotions', function () {
-    return view('promotions');
-})->name('promotions');
-
-Route::get('/services', function () {
-
-    $bills = (new BillController())->getallbills();
-
-    return view('services', [
-        'bills' => $bills,
-    ]);
-})->name('services');

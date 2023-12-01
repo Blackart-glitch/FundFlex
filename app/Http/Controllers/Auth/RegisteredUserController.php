@@ -79,4 +79,9 @@ class RegisteredUserController extends Controller
             return redirect()->route('verification.notice');
         }
     }
+
+    public function show($id)
+    {
+        return User::find($id);
+    }
 }

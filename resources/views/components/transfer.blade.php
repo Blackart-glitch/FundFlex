@@ -25,16 +25,20 @@
                     </div>
 
                     <div class="mb-3">
+                        <label for="TransferDescription" class="form-label">Description:</label>
+                        <textarea class="form-control p-2" id="description" name="description" placeholder="Enter description"></textarea>
+                    </div>
+
+                    <div class="mb-3">
                         <fieldset>
                             <legend>wallet Details</legend>
 
                             {{-- wallet wallet number --}}
                             <div class="mb-3">
-                                <input type="number" class="form-control p-2" name="wallet-number" id="wallet-number"
+                                <input type="number" class="form-control p-2" name="wallet_number" id="wallet-number"
                                     placeholder="Enter wallet number" step="1">
                             </div>
 
-                            {{-- wallet code --}}
                             <div class="mb-3">
                                 <button type="button" id="verifywallet" class="btn btn-primary mb-2">verify</button>
                                 <p class="p-3 border border-3 border-success container verified"></p>

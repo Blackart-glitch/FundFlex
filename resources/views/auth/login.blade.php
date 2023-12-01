@@ -1,75 +1,66 @@
 @extends('layouts.guest')
 @section('content')
-    <style>
-        /* Custom CSS for the login page */
-
-        .login-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-        }
-
-        .login-container img {
-            max-width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        @media (max-width: 768px) {
-            .login-container {
-                padding: 20px;
-            }
-        }
-    </style>
     <main>
-        <div class="container-fluid">
+        <style>
+            body {
+                background: url('/fundimg2-612x612.jpg');
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+            }
+        </style>
+        <div class="container my-5">
             <div class="row">
-                <div class="col-md-6 p-0">
-                    <!-- Image -->
-                    <img src="{{ asset('fundimg2-612x612.jpg') }}" alt="image of the flying dragon"
-                        style="width:100vh;height:100vh;">
-                </div>
-                <div class="col-md-6 p-0">
-                    <div class="login-container">
-                        <!-- Logo and Title -->
-                        <img src="{{ asset('fundimg-612x612.jpg') }}" alt="simple icon" style="width: 100px; height:100px;"
-                            class="mb-4">
-                        <h2 class="mb-4">Login</h2>
-                        <form method="POST" action="{{ route('login') }}">
-                            @csrf
-                            <div class="mb-3 input-group">
-                                <input type="email" class="form-control form-control-lg p-3" placeholder="Your Email"
-                                    name="email" required autofocus>
-                            </div>
-                            <div class="mb-3 input-group">
-                                <input type="password" class="form-control form-control-lg p-3" placeholder="Password"
-                                    name="password" required>
-                            </div>
-                            <div class="mb-3 form-check">
-                                <input class="form-check-input" type="checkbox" name="remember" id="remember">
-                                <label class="form-check-label" for="remember">
-                                    Remember Me
-                                </label>
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
-                        </form>
-                        @if ($errors->any())
-                            <div class="alert alert-danger mt-4">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
+                <div class="col-xl-7 d-flex justify-content-start">
+                    <div class="bg-white p-5">
+                        <div class="">
+                            <h2 class="">Sign In</h2>
+                            <form method="POST" action="{{ route('login') }}">
+                                @csrf
+                                <div class="mb-3 input-group">
+                                    <input type="email" class="form-control form-control-lg p-3" placeholder="Your Email"
+                                        name="email" required autofocus>
+                                </div>
+                                <div class="mb-3 input-group">
+                                    <input type="password" class="form-control form-control-lg p-3" placeholder="Password"
+                                        name="password" required>
+                                </div>
+                                <div class="mb-3 form-check">
+                                    <input class="form-check-input" type="checkbox" name="remember" id="remember">
+                                    <label class="form-check-label" for="remember">
+                                        Remember Me
+                                    </label>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
+                            </form>
+                            <p class="mt-3">Don't have an account? <a href="{{ route('register') }}">Sign Up</a></p>
+                            <p class="mt-3"><a href="{{ route('password.request') }}">Forgot Password?</a></p>
+                            @if ($errors->any())
+                                <div class="alert alert-danger mt-4">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+                        </div>
+                        <div class="text-center">
+                            <p>Or sign in with:</p>
+                            <a href="#" class="btn me-2"><img width="48"
+                                    height="48"src="https://img.icons8.com/color/48/facebook-new.png"
+                                    alt="facebook-new" /></a>
+                            <a href="#" class="btn me-2"><img width="48" height="48"
+                                    src="https://img.icons8.com/color/48/google-logo.png" alt="google-logo" /></a>
+                            <a href="#" class="btn me-2"><img width="50" height="50"
+                                    src="https://img.icons8.com/ios-filled/50/twitterx.png" alt="twitterx" /></a>
+                            <a href="#" class="btn"><img width="50" height="50"
+                                    src="https://img.icons8.com/ios-filled/50/github.png" alt="github" /></a>
+                        </div>
                     </div>
+                </div>
+                <div class="col-xl-5 text-center mt-5 align-items-center d-flex justify-content-center">
+                    <h1 class="display-4 text-warning fw-bold">FundFlex</h1>
                 </div>
             </div>
         </div>
