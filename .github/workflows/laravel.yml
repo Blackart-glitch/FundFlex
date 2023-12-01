@@ -27,21 +27,11 @@ jobs:
           echo "Setting up project environment variables"
           echo "${{ secrets.ENV_FILE }}" > .env
 
-    - name: dump .ENV
-      run: |
-          echo "Dumping .env"
-          cat .env
-          echo "Dumping .env.example"
-          cat .env.example
-
-
     - name: Generate key
       run: php artisan key:generate
 
-    - name: Install Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '16'
+    - name: Zip artifact for deployment
+      run: zip release.zip ./* -r
 
-    - name: Install NPM Dependencies
-      run: npm install
+    - name: show directory
+      run: ls -la
