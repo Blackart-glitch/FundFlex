@@ -25,10 +25,11 @@ jobs:
       id: Update_env
       run: |
           echo "Setting up project environment variables"
-          echo ${{ secrets.ENV_FILE }} > .env
+          echo "${{ secrets.ENV_FILE }}" > .env
 
     - name: dump .ENV
       run: |
+          echo "Dumping .env"
           cat .env
           echo "Dumping .env.example"
           cat .env.example
