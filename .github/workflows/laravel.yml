@@ -13,10 +13,8 @@ jobs:
     steps:
     - uses: shivammathur/setup-php@v2  # Update to the latest version
       with:
-        php-version: '8.1'
+        php-version: '8.2'
     - uses: actions/checkout@v2  # Update to the latest version
-    - name: Copy .env
-      run: php -r "file_exists('.env') || copy('.env.example', '.env');"
 
     - name: Install Dependencies
       run: |
@@ -29,8 +27,8 @@ jobs:
           echo "Setting up project environment variables"
           echo ${{ secrets.ENV_FILE }} > .env
 
-    - name: dUMP .ENV
-      run: cat .env
+    - name: dump .ENV
+      run: echo < .env
 
     - name: Generate key
       run: php artisan key:generate
