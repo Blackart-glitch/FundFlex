@@ -35,6 +35,17 @@ class TransactionController extends Controller
         $this->fundflexaccount = 2;
     }
 
+    /**
+     * The index function retrieves transactions for the authenticated user, retrieves additional
+     * information for each transaction, and returns a view with the transactions.
+     *
+     * @param Request request The  parameter is an instance of the Request class, which represents
+     * an HTTP request. It contains information about the current request, such as the request method,
+     * URL, headers, and input data.
+     *
+     * @return a view called 'history' with the variable 'Transactions' set to the value of the
+     *  array.
+     */
     public function index(Request $request)
     {
         $user = Auth::user();
@@ -51,6 +62,19 @@ class TransactionController extends Controller
         return view('history', ['Transactions' => $transactions]);
     }
 
+    /**
+     * The function retrieves transactions from the database for a specified user, with an optional
+     * limit on the number of transactions returned.
+     *
+     * @param user The "user" parameter is an optional parameter that allows you to specify a specific
+     * user for which you want to retrieve transactions. If no user is provided, it will default to the
+     * current user.
+     * @param limit The "limit" parameter determines the maximum number of transactions to retrieve
+     * from the database. By default, it is set to 20, but you can pass a different value to retrieve a
+     * different number of transactions.
+     *
+     * @return a collection of transactions.
+     */
     public function getTransactions($user = null, $limit = 20)
     {
 
@@ -69,6 +93,15 @@ class TransactionController extends Controller
         return $transactions;
     }
 
+    /**
+     * The store function creates a new transaction record in the database with the provided data and
+     * returns the created transaction.
+     *
+     * @param data An array containing the data needed to create a new transaction record in the
+     * database. The array should include the following keys:
+     *
+     * @return the newly created transaction record.
+     */
     public function store($data)
     {
         $this->PG = 'PayStack';
@@ -89,11 +122,33 @@ class TransactionController extends Controller
         return $transaction;
     }
 
+    /**
+     * The show function retrieves a transaction record by its ID.
+     *
+     * @param id The  parameter is the unique identifier of the transaction that you want to retrieve
+     * and display.
+     *
+     * @return a Transaction model instance with the specified ID.
+     */
     public function show($id)
     {
         return Transaction::find($id);
     }
 
+    /**
+     * The function updates the status of a transaction in the database based on either the transaction
+     * ID or the reference ID.
+     *
+     * @param status The status parameter is used to specify the new status that you want to update for
+     * the transaction. It can be any value that represents the status of the transaction, such as
+     * "pending", "completed", "cancelled", etc.
+     * @param reference_id The reference_id is a unique identifier for a transaction. It is used to find
+     * the transaction in the database and update its status.
+     * @param transaction_id The transaction_id parameter is used to identify a specific transaction in
+     * the database. It is used to update the status of that transaction.
+     *
+     * @return the updated transaction object.
+     */
     public function updatestatus($status, $reference_id = null, $transaction_id = null)
     {
         if ($transaction_id !== null) {
@@ -111,6 +166,17 @@ class TransactionController extends Controller
         return $transaction;
     }
 
+    /**
+     * The topUp function in PHP receives a payment request, creates a new transaction record in the
+     * database, logs the transaction, authorizes the payment using Paystack, and redirects the user to the
+     * payment gateway.
+     *
+     * @param PaymentsTopUpRequest request The  parameter is an instance of the
+     * PaymentsTopUpRequest class, which is used to retrieve the data from the HTTP request made to the
+     * topUp() method.
+     *
+     * @return a redirect response to the intended payment gateway URL.
+     */
     public function topUp(PaymentsTopUpRequest $request)
     {
 
@@ -162,6 +228,18 @@ class TransactionController extends Controller
         //redirects the user to the payment gateway
         return redirect()->intended($paystack['data']['authorizarion_url']);
     }
+    /**
+     * The function withdraws a specified amount from a user's wallet balance, deducts the amount from the
+     * wallet balance, and initiates a transfer to the user's bank account using a payment gateway.
+     *
+     * @param PaymentsWithdrawRequest request The  parameter is an instance of the
+     * PaymentsWithdrawRequest class, which is used to retrieve the data from the HTTP request made to the
+     * withdraw() function.
+     *
+     * @return The code returns a redirect response to either the 'dashboard' or 'wallet' route, depending
+     * on the outcome of the withdrawal process. The response includes a success or error message that will
+     * be displayed to the user.
+     */
 
     public function withdraw(PaymentsWithdrawRequest $request)
     {
@@ -248,6 +326,17 @@ class TransactionController extends Controller
         return redirect()->route('wallet')->with('success', 'the withdrawal has been processed, but traditional banks might take time to process it.');
     }
 
+    /**
+     * The transfer function in PHP handles the transfer of funds between two wallets, updating the
+     * balances and logging the transaction details.
+     *
+     * @param PaymentsTransferRequest request The  parameter is an instance of the
+     * PaymentsTransferRequest class, which contains the data sent in the HTTP request to the
+     * transfer() function. It is used to retrieve the amount, wallet number, and description of the
+     * transfer.
+     *
+     * @return a redirect response to the 'dashboard' route with a success or error message.
+     */
     public function transfer(PaymentsTransferRequest $request)
     {
         $user = Auth::user();
@@ -365,6 +454,16 @@ class TransactionController extends Controller
         }
     }
 
+    /**
+     * The `payBill` function is responsible for processing a bill payment transaction, including
+     * verifying the user's funds, creating a transaction record, updating the user's wallet balance,
+     * and handling any errors or refunds.
+     *
+     * @param PaymentsBillRequest request The  parameter is an instance of the
+     * PaymentsBillRequest class, which is used to retrieve the necessary data for paying a bill.
+     *
+     * @return a redirect response to the 'dashboard' route with a success or error message.
+     */
     public function payBill(PaymentsBillRequest $request)
     {
         $user = Auth::user();
@@ -485,6 +584,19 @@ class TransactionController extends Controller
         }
     }
 
+    /**
+     * The log function creates a new transaction log entry and optionally returns the created log entry.
+     *
+     * @param data The `` parameter is an array that contains the necessary information for creating
+     * a transaction log. It should have two keys: `'transaction_id'` and `'log_message'`. The value of
+     * `'transaction_id'` should be the ID of the transaction, and the value of `'log_message'
+     * @param callback The `` parameter is a boolean flag that determines whether or not to
+     * return the created `` object. If `` is set to `true`, the function will return the
+     * `` object. If `` is set to `false` or not provided, the function will
+     *
+     * @return If the  parameter is true, the  variable will be returned. Otherwise, nothing
+     * will be returned.
+     */
     public function log($data, $callback = false)
     {
         $log = TransactionLog::create([
@@ -497,6 +609,16 @@ class TransactionController extends Controller
         }
     }
 
+    /**
+     * The function linkTransactionToBill links a transaction to a bill by creating a mapping entry in the
+     * transaction_bill_mapping table.
+     *
+     * @param txn_id The txn_id parameter is the ID of the transaction that you want to link to a bill.
+     * @param bill_id The `bill_id` parameter is the ID of the bill that you want to link the transaction
+     * to.
+     *
+     * @return the created TransactionBillMapping object.
+     */
     public function linkTransactionToBill($txn_id, $bill_id)
     {
         $transaction = Transaction::find($txn_id);
@@ -511,6 +633,17 @@ class TransactionController extends Controller
         return $map;
     }
 
+    /**
+     * The function verifies a payment gateway transaction, updates the transaction status in the
+     * database, updates the user's wallet balance, and logs the transaction.
+     *
+     * @param Request request The  parameter is an instance of the Request class, which
+     * represents an HTTP request. It is used to retrieve data from the request, such as query
+     * parameters, form data, and headers.
+     *
+     * @return a redirect response to either the 'dashboard' route with a success message or to the
+     * 'errors.critical' view with an error message.
+     */
     public function verify_PG_transaction(Request $request)
     {
         $user = Auth::user();
