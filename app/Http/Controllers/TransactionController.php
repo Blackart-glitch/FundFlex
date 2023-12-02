@@ -18,6 +18,7 @@ use App\Models\BillCategory;
 use App\Models\Currency;
 use App\Models\TransactionLog;
 use App\Models\TransactionBillMapping;
+use App\Models\paystack_customer_accounts;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 
@@ -175,8 +176,14 @@ class TransactionController extends Controller
             return redirect()->route('dashboard')->with('error', 'Sorry, you do not have enough funds to complete this transaction.');
         } else {
             //temporary fix for multicurrency support
-            if ($wallet->currency ==  'NGN') {
-                $amount = $amount * 100;
+
+            //attempt to get the currency code
+            $currency = (new CurrencyController())->show($wallet->currency);
+            if ($currency->code ==  'NGN') {
+
+                //update wallet balance
+                $wallet->balance = $wallet->balance - $amount;
+                $wallet->save();
             } else {
                 return redirect()->route('dashboard')->with('error', 'Sorry, "' . $wallet->currency . '" support is not available at the moment. Only NGN is supported.');
             }
@@ -190,7 +197,7 @@ class TransactionController extends Controller
             'transaction_type' => 'debit',
             'desc' => 'Withdraw from fundflex balance',
             'amount' => $request->amount,
-            'currency_id' => $request->currency,
+            'currency_id' => $wallet->currency,
         ];
 
         $transaction = $this->store($data);
@@ -202,6 +209,43 @@ class TransactionController extends Controller
 
         //creates a new transaction log record in the database
         $transactionlog = $this->log($log);
+
+        //checks if user has a paystack code
+        $recipient = paystack_customer_accounts::where('user_id', $user->id)->first();
+
+        if ($recipient !== null) {
+            //deducts the amount from the user's wallet
+            $wallet->balance = $wallet->balance - $amount;
+            $wallet->save();
+
+            //sends a request to the payment gateway to initiate a transfer
+            //$transfer = (new PaystackController())->initiateTransfer($amount, $recipient->customer_code, $transaction->reference_id, 'Fundflex Withdrawal');
+
+            return redirect()->route('dashboard')->with('success', 'Transaction Initiated, you would get a notification when the transfer is completed.');
+        }
+
+        //sends a request to the payment gateway to create a recipient account
+        $recipient = (new PaystackController())->createTransferRecipient($request->account_number, $request->bank_code, $request->account_name);
+
+        if ($recipient['status'] == false) {
+            return redirect()->route('dashboard')->with('error', 'Sorry, we could not process your request. Please try again later.');
+        }
+
+        //saves the recipient code to the database
+        $recipient = paystack_customer_accounts::create([
+            'user_id' => $user->id,
+            'customer_code' => $recipient['data']['recipient_code'],
+        ]);
+
+
+        //deducts the amount from the user's wallet
+        $wallet->balance = $wallet->balance - $amount;
+        $wallet->save();
+
+        //sends a request to the payment gateway to initiate a transfer
+        //$transfer = (new PaystackController())->initiateTransfer($amount, $recipient['data']['recipient_code'], $transaction->reference_id, 'Fundflex Withdrawal');
+
+        return redirect()->route('wallet')->with('success', 'the withdrawal has been processed, but traditional banks might take time to process it.');
     }
 
     public function transfer(PaymentsTransferRequest $request)
