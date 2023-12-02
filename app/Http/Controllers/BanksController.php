@@ -166,7 +166,6 @@ class BanksController extends Controller
         ]);
 
         $response = json_decode($response->getBody()->getContents(), true);
-
         return $response;
     }
 }

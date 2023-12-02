@@ -4,17 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PaymentsWithdrawRequest extends FormRequest
+class Storepaystack_customer_accountsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        //only authenticated users can make this request
-        return auth()->check()
-            ? true
-            : false;
+        return false;
     }
 
     /**
@@ -25,11 +22,7 @@ class PaymentsWithdrawRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //currency and amount are required
-            'amount' => 'required|numeric',
-            'account_number' => 'required|string',
-            'bank_code' => 'required|string',
-            'BankName' => 'string',
+            //
         ];
     }
 }

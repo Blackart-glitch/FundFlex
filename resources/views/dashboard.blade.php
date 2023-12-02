@@ -13,7 +13,6 @@
         }
     </style>
     <div>
-
         @if (isset($_GET['verified']) && $_GET['verified'] == 1)
             <div class="alert alert-success alert-dismissible fade show" tabindex="-1" role="alert">
                 <strong>Success!</strong> Your account has been verified.
@@ -42,7 +41,13 @@
                 <strong>Success!</strong> {{ session('success') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
+        @elseif (session('warning'))
+            <div class="alert alert-warning alert-dismissible fade show" tabindex="-1" role="alert">
+                <strong>Warning!</strong> {{ session('warning') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
         @endif
+
 
         <div class="row justify-content-evenly">
             <div class="col-lg-5 bg-white p-2 rounded shadow-lg">
