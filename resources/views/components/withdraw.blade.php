@@ -31,15 +31,15 @@
                                 correct</p>
                             {{-- bank account number --}}
                             <div class="mb-3">
-                                <input type="number" class="form-control p-2" name="account-number" id="account-number"
+                                <input type="number" class="form-control p-2" name="account_number" id="account-number"
                                     placeholder="Enter account number" step="1">
                             </div>
 
                             {{-- bank name --}}
                             <div class="mb-3">
                                 <input type="text" class="form-control p-2" name="BankName" id="BankName"
-                                    placeholder="Enter bank name" list="banks" required>
-                                <input type="hidden" id="bank-code" name="bank-code" required>
+                                    placeholder="Enter bank name" list="banks" autocomplete="off" required>
+                                <input type="hidden" id="bank-code" name="bank_code" required>
                                 {{-- data list --}}
                                 <datalist id="banks">
                                     {{-- options will be added dynamically using javascript --}}
@@ -112,6 +112,7 @@
                     },
                     dataType: "json",
                     success: function(response) {
+
                         // Fill in the datalist
                         response.forEach(bank => {
 
