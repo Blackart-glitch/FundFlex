@@ -6,7 +6,9 @@ use GuzzleHttp\Client;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\SecurityTokenController;
+use App\Models\SecurityToken;
 use App\Providers\RouteServiceProvider;
 
 class TwoFactorAuthentication extends Controller
@@ -105,5 +107,30 @@ class TwoFactorAuthentication extends Controller
         return [
             'qrcode' => $response,
         ];
+    }
+
+    public function requestQR(request $request)
+    {
+        //get two_factor from the request
+        $two_factor = $request->two_factor;
+
+        $user = User::findorfail($request->user()->id);
+        if ($two_factor) {
+
+            $user->two_factor = $two_factor == 'true' ? 'enabled' : 'disabled';
+            $user->save();
+        } else {
+
+            //destroy the previous token
+            $destroy = (new SecurityToken())->destroy($request->user()->id, 'two-factor');
+        }
+
+        return response()->json([
+            ' status' => 'success',
+            'message' => 'QR code generated successfully',
+            'two_factor' => $two_factor,
+            'data' => $this->store($request->user()),
+            'user' => $user,
+        ]);
     }
 }

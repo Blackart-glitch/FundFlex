@@ -5,13 +5,12 @@
         <!-- Nav tabs -->
         <ul class="nav nav-pills container justify-content-center container-fluid gap-3 p-3" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="btn btn-outline-primary" id="account-tab" data-bs-toggle="tab" data-bs-target="#account"
+                <button class="btn btn-outline-primary active" id="account-tab" data-bs-toggle="tab" data-bs-target="#account"
                     type="button" role="tab" aria-controls="account" aria-selected="true">Account</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="btn btn-outline-primary active" id="security-tab" data-bs-toggle="tab"
-                    data-bs-target="#security" type="button" role="tab" aria-controls="security"
-                    aria-selected="false">Security</button>
+                <button class="btn btn-outline-primary" id="security-tab" data-bs-toggle="tab" data-bs-target="#security"
+                    type="button" role="tab" aria-controls="security" aria-selected="false">Security</button>
             </li>
             <li class="nav-item" role="presentation">
                 <button class="btn btn-outline-primary" id="data-privacy-tab" data-bs-toggle="tab"
@@ -34,25 +33,28 @@
             </li>
         </ul>
 
-
-
-
         <!-- Tab panes -->
         <div class="tab-content justify-content-center">
             <!-- Account Tab Content -->
-            <div class="tab-pane" id="account" role="tabpanel" aria-labelledby="account-tab">
+            <div class="tab-pane active" id="account" role="tabpanel" aria-labelledby="account-tab">
                 <div class="container">
                     <div class="row m-3 text-center">
                         {{-- right nav --}}
                         <div class="col-6 themed-grid-col">
                             {{-- profile card bootstrap --}}
                             <div class="card bg-dark">
-                                <img class="card-img-top opacity-50" src="{{ asset('user_image.jpg') }}" alt="Title">
-                                <span class="material-symbols-outlined btn btn-outline-warning w-25 container">
-                                    add_a_photo
-                                </span>
+                                <img class="card-img-top opacity-50" src="{{ asset('storage/Avatars/' . $user->avatar) }}"
+                                    alt="Title">
+                                <button class="btn btn-outline-warning w-25 container"
+                                    data-bs-target="#ProfileImageUploadModal" data-bs-toggle="modal">
+                                    <span class="material-symbols-outlined">
+                                        add_a_photo
+                                    </span>
+                                </button>
+                                <x-forms.profile-image />
+
                                 <div class="card-body bg-warning">
-                                    <h4 class="card-title">John Doe</h4>
+                                    <h4 class="card-title">{{ $user->Firstname . ' ' . $user->Lastname }}</h4>
                                     <p class="card-text"></p>
                                 </div>
                             </div>
@@ -81,7 +83,6 @@
                                                         <select class="form-select" id="languageDropdown">
                                                             <option value="en_US">English</option>
                                                             <option value="es_ES">Spanish</option>
-                                                            <!-- Add more language options here -->
                                                         </select>
                                                     </div>
 
@@ -125,7 +126,7 @@
                                                     <div class="mb-3">
                                                         <label for="merchantId" class="form-label">Merchant ID:</label>
                                                         <p id="merchantId" class="bg-info p-2 rounded">
-                                                            5444444476cvcbjsieufci c</p>
+                                                            {{ $user->merchant_id }} </p>
                                                     </div>
 
                                                     <!-- Additional content within the accordion body -->
@@ -148,16 +149,19 @@
                                     </span>
                                     <span class="col-6 align-self-end">
 
-                                        <button class="btn btn-outline-warning">
+                                        <button class="btn btn-outline-warning" data-bs-target="#emailUpdateModal"
+                                            data-bs-toggle="modal">
                                             <span class="material-symbols-outlined">
                                                 add_circle
                                             </span>
                                             Add
                                         </button>
+                                        <x-forms.profile-email />
+
                                     </span>
                                 </div>
                                 <div class="card-body">
-                                    <h5>danielajiboye1@gmail.com <span class="badge bg-success">primary</span></h5>
+                                    <h5>{{ $user->email }} <span class="badge bg-success">primary</span></h5>
                                 </div>
                                 <div class="card-footer">
                                     <h6>To update an email address, you must have at least two email addresses on file.</h6>
@@ -170,12 +174,14 @@
                                     </span>
                                     <span class="col-6 align-self-end">
 
-                                        <button class="btn btn-outline-warning">
+                                        <button class="btn btn-outline-warning" data-bs-toggle="modal"
+                                            data-bs-target="#phoneUpdateModal">
                                             <span class="material-symbols-outlined">
                                                 add_circle
                                             </span>
                                             update
                                         </button>
+                                        <x-forms.profile-phone />
                                     </span>
                                 </div>
                                 <div class="card-body justify-items-start">
@@ -183,17 +189,10 @@
                                         <h5 class="col align-self-start">mobile <span
                                                 class="badge bg-success">primary</span></h5>
                                         <div class="col align-self-end">
-                                            090****43
-                                        </div>
-                                    </div>
-                                    <div class="row mt-3">
-                                        <h5 class="col align-self-start">mobile <span
-                                                class="badge bg-secondary">secondary</span></h5>
-                                        <div class="col align-self-end">
-                                            090****43
-                                        </div>
-                                    </div>
 
+                                            {{ $user->Phone }}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="card mt-3  pt-3">
@@ -224,21 +223,28 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="align-items-center p-4 rounded m-3 btn btn-outline-danger">
-                                <span class="material-symbols-outlined d-inline-block">
-                                    lock
-                                </span>
-                                <span>Close your account</span>
-                            </div>
+                            <form action=" {{ route('profile.destroy') }} " method="post">
+                                <button type="submit" style="border: none; background-color: none;"
+                                    data-bs-toggle="modal" data-bs-target="#deleteAccountModal">
+                                    <div class="align-items-center p-4 rounded m-3 btn btn-outline-danger">
+                                        <span class="material-symbols-outlined d-inline-block">
+                                            lock
+                                        </span>
+                                        <span>Close your account</span>
+                                    </div>
+                                </button>
+                                <x-forms.profile-destroy />
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Security Tab Content -->
-            <div class="tab-pane active" id="security" role="tabpanel" aria-labelledby="security-tab">
+            <div class="tab-pane " id="security" role="tabpanel" aria-labelledby="security-tab">
                 <div class="container mt-3 text-center">
-                    <img src="{{ asset('user_image.jpg') }}" class="img-fluid rounded-4" height="100" width="100">
+                    <img src="{{ asset('storage/Avatars/' . $user->avatar) }}" class="img-fluid rounded-4" height="100"
+                        width="100">
                     <div class="fw-bold">
                         <h3>Security</h3>
                     </div>
@@ -259,12 +265,14 @@
                                 than just a password to log in.</p>
                         </div>
                         <div class="col-3 align-content-center">
-                            <button class="btn btn-outline-warning">
+                            <button class="btn btn-outline-warning d-flex justify-content between gap-1 align-items-center"
+                                data-bs-toggle="modal" data-bs-target="#TwofaSettingsModal">
                                 <span class="material-symbols-outlined">
                                     add_circle
                                 </span>
                                 Add
                             </button>
+                            <x-forms.profile-two-factor :$user />
                         </div>
                         <!-- Security Questions -->
                         <div class="col-1">
@@ -279,7 +287,8 @@
                             <p>Add security questions to enhance your account's security.</p>
                         </div>
                         <div class="col-3 align-content-center">
-                            <button class="btn btn-outline-warning">
+                            <button
+                                class="btn btn-outline-warning d-flex justify-content between gap-1 align-items-center">
                                 <span class="material-symbols-outlined">
                                     add_circle
                                 </span>
@@ -299,7 +308,8 @@
                             <p>Enable or disable auto-login for your account.</p>
                         </div>
                         <div class="col-3 align-content-center">
-                            <button class="btn btn-outline-warning">
+                            <button
+                                class="btn btn-outline-warning d-flex justify-content between gap-1 align-items-center">
                                 <span class="material-symbols-outlined">
                                     add_circle
                                 </span>
@@ -319,7 +329,8 @@
                             <p>Add passkeys for additional account security.</p>
                         </div>
                         <div class="col-3 align-content-center">
-                            <button class="btn btn-outline-warning">
+                            <button
+                                class="btn btn-outline-warning d-flex justify-content between gap-1 align-items-center">
                                 <span class="material-symbols-outlined">
                                     add_circle
                                 </span>
@@ -339,12 +350,16 @@
                             <p>Change your account password for added security.</p>
                         </div>
                         <div class="col-3 align-content-center">
-                            <button class="btn btn-outline-warning">
-                                <span class="material-symbols-outlined">
-                                    edit
-                                </span>
-                                Change
-                            </button>
+                            <form action="{{ route('password.reset', ['token' => 334343]) }}" method="put">
+                                @csrf
+                                <button type="submit"
+                                    class="btn btn-outline-warning d-flex justify-content between gap-1 align-items-center">
+                                    <span class="material-symbols-outlined">
+                                        edit
+                                    </span>
+                                    Change
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -549,5 +564,6 @@
                 </div>
             </div>
 
+        </div>
     </main>
 @endsection
