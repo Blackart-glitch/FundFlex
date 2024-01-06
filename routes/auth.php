@@ -46,9 +46,9 @@ Route::middleware('auth')->group(function () {
         ->name('verification.notice');
 
     //acepts the verification link for authentication
-    /*     Route::get('verify-email/{id}/{hash}', VerifyEmailController::class)
+    Route::get('verify-email/{id}/{hash}', VerifyEmailController::class)
         ->middleware(['signed', 'throttle:6,1'])
-        ->name('verification.verify'); */
+        ->name('verification.verify');
 
     Route::post('verify-email-token', [VerifyEmailController::class, 'validate_token'])
         ->name('verify.token');

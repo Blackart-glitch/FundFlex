@@ -1,4 +1,4 @@
-@extends('layouts.app');
+@extends('layouts.guest');
 @section('content')
     <div class="mt-5 p-5">
         <div class="container mt-5">
@@ -7,7 +7,7 @@
                     <h1 class="text-center">Password Reset</h1>
                     <form method="POST" action="{{ route('password.update') }}">
                         @csrf
-
+                        @method('PUT')
                         {{-- temporaryfor now --}}
                         @php
                             $request = request();

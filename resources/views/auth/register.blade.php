@@ -14,7 +14,7 @@
                 <div class="col-xl-7 d-flex justify-content-start">
                     <div class="bg-white p-5">
                         <div class="">
-                            <h2 class="">Sign In</h2>
+                            <h2 class="">Sign Up</h2>
                             <form method="POST" action="{{ route('register') }}">
                                 @csrf
                                 <div class="mb-3 input-group">
