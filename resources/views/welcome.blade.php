@@ -14,7 +14,7 @@
                     <p class="lead">Your University E-Wallet for seamless online transactions and financial management.
                     </p>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                        <a href="/signup" class="btn btn-primary btn-lg px-4 me-md-2">Get Started</a>
+                        <a href="{{ route('register') }}" class="btn btn-primary btn-lg px-4 me-md-2">Get Started</a>
                         <a href="/learn-more" class="btn btn-outline-secondary btn-lg px-4">Learn More</a>
                     </div>
                 </div>

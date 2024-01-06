@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="{{ asset('bootstrap-5.3.2-dist/css/bootstrap.css') }}">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+    <script src="{{ asset('jquery-3.7.1.js') }}"></script>
+    <script src="{{ asset('bootstrap-5.3.2-dist/js/bootstrap.js') }}"></script>
 </head>
 
 <body>
@@ -30,12 +33,10 @@
                     <li><a href="{{ route('promotions') }}" class="nav-link px-2 text-white">Promotions</a></li>
                 </ul>
 
-
-
                 <div class=" d-flex text-end gap-3 align-items-center">
                     <div>
-                        <img src="https://avatars.githubusercontent.com/u/64565324?v=4" alt="user_image" height="40"
-                            width="40" class="rounded-4">
+                        <img src="{{ asset('storage/Avatars/' . auth()->user()->avatar) }}" alt="user_image"
+                            height="40" width="40" class="rounded-4">
                     </div>
                     <span class=" btn btn-outline-warning material-symbols-outlined" data-bs-toggle="modal"
                         data-bs-target="#notificationModal">
@@ -54,8 +55,6 @@
 
     @yield('content')
 
-    <script src="{{ asset('jquery-3.7.1.js') }}"></script>
-    <script src="{{ asset('bootstrap-5.3.2-dist/js/bootstrap.js') }}"></script>
 </body>
 <footer class="text-bg-dark ">
     <div class="container">
