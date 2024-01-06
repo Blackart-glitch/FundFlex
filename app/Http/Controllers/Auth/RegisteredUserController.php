@@ -52,8 +52,10 @@ class RegisteredUserController extends Controller
         $user = User::create([
             'Firstname' => $request->Firstname,
             'Lastname' => $request->Lastname,
-            'Phone' => $request->Phone, // You can omit this line if Phone is nullable
+            'Username' => 'Fundflex_squidy',
+            'Phone' => $request->Phone,
             'email' => $request->email,
+            'avatar' => 'user_default.png',
             'password' => Hash::make($request->password),
         ]);
 
