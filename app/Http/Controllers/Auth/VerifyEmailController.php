@@ -34,9 +34,11 @@ class VerifyEmailController extends Controller
     }
 
 
-    public function send_token($token)
+    public function send_token($token, $user = null)
     {
-        $user = Auth()->user();
+        if ($user == null) {
+            $user = Auth()->user();
+        }
 
         $data = [
             'name' => $user->Firstname,

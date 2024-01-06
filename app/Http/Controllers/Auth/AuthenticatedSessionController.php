@@ -31,9 +31,16 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request): RedirectResponse
     {
 
+
+
         $request->authenticate();
 
         $request->session()->regenerate();
+
+        if ($request->user()->status == 'inactive' || $request->user()->status == 'deleted') {
+            Auth::logout();
+            return redirect()->route('login')->with('error', 'Your account is inactive or suspended. Please contact support for assistance.');
+        }
 
         if ($request->user()->hasVerifiedEmail()) {
 

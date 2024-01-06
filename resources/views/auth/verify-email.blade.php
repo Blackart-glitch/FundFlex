@@ -38,6 +38,7 @@
                             <input type="text" id="code9" class="form-control verification-input mx-1 text-center"
                                 maxlength="1">
                             <input type="hidden" id="code" name="code" value="">
+
                         </div>
                         <div class="text-center mt-4">
                             @if ($errors->has('token'))
@@ -161,8 +162,8 @@
                             const timeDisplay = document.getElementById('timeDisplay');
                             resendButton.prop('disabled', true);
 
-                             const timerInterval = setInterval(updateButtonAndTime, 1000);
-                             updateButtonAndTime();
+                            const timerInterval = setInterval(updateButtonAndTime, 1000);
+                            updateButtonAndTime();
                         }
                     }
                 });

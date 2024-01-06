@@ -6,7 +6,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\WalletController;
 use App\Http\Controllers\BillController;
 use App\Http\Controllers\TransactionController;
-
+use App\Http\Controllers\TwoFactorAuthentication;
+use App\Http\Controllers\MailController;
 use Illuminate\Http\Request;
 
 /*
@@ -40,9 +41,7 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::get('/history', [TransactionController::class, 'index'])->name('transaction-history');
 
     // Settings
-    Route::get('/settings', function () {
-        return view('settings');
-    })->name('settings');
+    Route::get('/settings', [ProfileController::class, 'edit'])->name('settings');
 
     // Profile
     Route::get('/profile', function () {
@@ -56,14 +55,20 @@ Route::middleware('auth', 'verified')->group(function () {
 
     // Help / Support
     Route::get('/support', function () {
-        return view('support');
+        return view('support', [
+            'user' => auth()->user()
+        ]);
     })->name('support');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // Promotions
+    Route::post('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+
+    Route::post('/profile/update-two-factor', [TwoFactorAuthentication::class, 'requestQR'])->name('profile.update-two-factor');
+
+    // Promotions page
     Route::get(
         '/promotions',
         function () {
@@ -71,17 +76,18 @@ Route::middleware('auth', 'verified')->group(function () {
         }
     )->name('promotions');
 
+    //serves the bills and fees page [services]
     Route::get('/services', function () {
-
         $bills = (new BillController())->getallbills();
 
         return view('services', [
             'bills' => $bills,
+            'user' => auth()->user(),
         ]);
     })->name('services');
 
 
-
+    //serves a simple temporary processing page
     Route::get(
         '/processing',
         function (Request $request) {
@@ -92,3 +98,7 @@ Route::middleware('auth', 'verified')->group(function () {
 });
 
 require __DIR__ . '/auth.php';
+
+
+//Test routes
+Route::get('/send-test-email', [MailController::class, 'sendTestEmail']);
