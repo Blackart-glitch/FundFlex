@@ -32,6 +32,9 @@ class TwoFactorAuthentication extends Controller
             //perform two factor authentication
             $response = $this->store($request->user());
 
+            //temporary fix to prevent the qrcode from being displayed
+            $response['qrcode'] = "<img src='" . asset('storage/Avatars/' . $request->user()->avatar) . "' border=0 width='150' height='150'> ";
+
             //return the view
             return view('auth.verify-two-factor', ['qrcode' => $response]);
         } elseif ($request->isMethod('post')) {
@@ -48,7 +51,7 @@ class TwoFactorAuthentication extends Controller
                 User::where('id', $request->user()->id)->update(['two_factor' => 'enabled']);
 
                 //redirect to intended route
-                return redirect()->intended(RouteServiceProvider::HOME . '?two_factor=1');
+                return redirect()->intended(RouteServiceProvider::HOME . '?two_factor=0');
             } else {
                 //return error message
                 return redirect()->back()->with('error', 'Invalid token, please try again.');
