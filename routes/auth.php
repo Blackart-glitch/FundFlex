@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\WalletController;
 use App\Http\Controllers\BanksController;
+use App\Http\Controllers\BillController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TwoFactorAuthentication;
 use App\Models\FlaggedTransaction;
@@ -91,6 +92,10 @@ Route::middleware('auth')->group(function () {
     Route::post('wallet/withdraw', [TransactionController::class, 'withdraw'])->name('wallet.withdraw');
 
     Route::post('wallet/bill', [TransactionController::class, 'payBill'])->name('wallet.bill');
+
+    Route::post('bill/save', [BillController::class, 'linkToUser'])->name('bill.save');
+
+    Route::post('bill/remove', [BillController::class, 'unlinkFromUser'])->name('bill.remove');
 
     Route::get('verify/transaction', [TransactionController::class, 'verify_PG_transaction']);
 
