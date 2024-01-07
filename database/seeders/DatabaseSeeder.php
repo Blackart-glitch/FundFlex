@@ -60,7 +60,7 @@ class DatabaseSeeder extends Seeder
             'account_number' => '45367657223',
             'balance' => 100000,
             'status' => 'active',
-            'currency' => 23
+            'currency' => 21
         ]);
 
         /* Admin account wallet */
@@ -69,7 +69,7 @@ class DatabaseSeeder extends Seeder
             'account_number' => '45367657224',
             'balance' => 0,
             'status' => 'active',
-            'currency' => 23
+            'currency' => 21
         ]);
 
         //User::factory(20)->create();
