@@ -17,8 +17,9 @@
                         <div class="QR-code d-flex justify-content-center btn btn-warning">
                             {!! $qrcode['qrcode'] !!}
                         </div>
-                        <p class="text-center">Open your Google Authenticator App, and press the "+" icon in the top right,
-                            and then press "Scan Barcode"</p>
+                        <p class="text-center">Open your Google Authenticator App, and type in the secret code. If you dont
+                            have access to that, then you might have to <a href="http://">reverify your email</a> or contact
+                            support for assistance</p>
                         <div class="d-flex justify-content-center">
                             <input type="text" id="code1" class="form-control verification-input mx-1 text-center"
                                 maxlength="1">
@@ -43,17 +44,7 @@
                             <button class="btn btn-outline-secondary" type="button" id="clear">Clear</button>
                         </div>
                     </form>
-                    <div class="text-center mt-4">
-                        <p>
-                            Didn't receive the code?
-                        <div class="gap-2 d-flex justify-content-center align-items-center" role="group"
-                            aria-label="Button group name">
 
-                            <button id="resendButton" class="btn btn-outline-primary">Resend</button>
-                            <span id="timeDisplay" class="fw-bold text-danger"></span>
-                        </div>
-                        </p>
-                    </div>
                 </div>
             </div>
         </div>

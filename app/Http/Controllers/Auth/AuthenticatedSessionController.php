@@ -49,7 +49,7 @@ class AuthenticatedSessionController extends Controller
                 //redirect to the 2fa page with the QR code and token
                 return redirect()->route('two-factor');
             } else {
-                return redirect()->intended(RouteServiceProvider::HOME . '?two_factor=0&logged_in=1');
+                return redirect()->intended(RouteServiceProvider::HOME . '?two_factor=1&logged_in=1');
             }
         } else {
             //creates a token for the user

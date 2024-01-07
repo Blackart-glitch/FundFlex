@@ -26,7 +26,7 @@
         @elseif (isset($_GET['two_factor']) && $_GET['two_factor'] == 1)
             <div class="alert alert-warning alert-dismissible fade show" tabindex="-1" role="alert">
                 <strong>Warning</strong> To avoid risk{{ $user->Firstname }}, setup two step verification by clicking here
-                <a href="{{ route('two-factor') }}">here</a>
+                <a href="{{ route('settings') }}">here</a>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
