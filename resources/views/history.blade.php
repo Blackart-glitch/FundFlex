@@ -108,9 +108,9 @@
                                 <td scope="row">{{ $transaction->id }}</td>
                                 <td>{{ $transaction->updated_at }} </td>
                                 <td>{{ $transaction->description }}</td>
-                                <td>{!! $transaction->transaction_type == 'debit'
-                                    ? '<strong class="text-danger">' . $transaction->transaction_type . '</strong>'
-                                    : '<strong class="text-success">' . $transaction->transaction_type . '</strong>' !!} </td>
+                                <td>{!! $transaction->sender_id == Auth::user()->id
+                                    ? '<strong class="text-danger">' . 'debit' . '</strong>'
+                                    : '<strong class="text-success">' . 'credit' . '</strong>' !!} </td>
                                 <td>{{ $transaction->currency . ' ' . $transaction->amount }}</td>
                                 <td>
                                     <strong>

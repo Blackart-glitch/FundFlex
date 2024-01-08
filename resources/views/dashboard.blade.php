@@ -124,11 +124,11 @@
                             </p>
                             <p class="mb-0"><time datetime="2023-10-01"> {{ $transaction->updated_at }} </time></p>
                         </div>
-                        @if ($transaction->transaction_type == 'debit')
+                        @if ($transaction->sender_id == $user->id)
                             <div class="col-lg-2 col-md-6 fw-bolder text-danger">
                                 <p class="mb-0">Debit</p>
                             </div>
-                        @elseif ($transaction->transaction_type == 'credit')
+                        @elseif ($transaction->receiver_id == $user->id)
                             <div class="col-lg-2 col-md-6 fw-bolder text-success">
                                 <p class="mb-0">Credit</p>
                             </div>
