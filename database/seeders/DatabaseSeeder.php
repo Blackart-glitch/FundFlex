@@ -44,7 +44,7 @@ class DatabaseSeeder extends Seeder
         User::create([
             'Firstname' => 'FundFlex',
             'Lastname' => 'PLC',
-            'email' => 'support@FundFlex.com',
+            'email' => 'boyelanrewaju@gmail.com',
             'password' => 'superencryptedpassword',
             'Username' => 'Fundflex',
             'Phone' => '1234567890',
