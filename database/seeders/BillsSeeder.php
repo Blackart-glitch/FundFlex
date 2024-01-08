@@ -47,7 +47,7 @@ class BillsSeeder extends Seeder
                 'category_id' => BillCategory::all()->random()->pluck('id')->first(),
                 'status' => 'active',
                 'attachment' => 'https://placehold.co/600',
-                'currency_id' => Currency::all()->random()->pluck('id')->first(),
+                'currency_id' => 21,
                 'payment_method' => 'fundflex secure',
                 'reference' => 'fundflex' . rand(100000, 999999),
                 'late_fee' => rand(1000, 10000),
