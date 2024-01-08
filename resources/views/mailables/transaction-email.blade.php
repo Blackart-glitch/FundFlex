@@ -2,6 +2,7 @@
 <html>
 
 <head>
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <link href="{{ asset('bootstrap-5.3.2-dist/css/bootstrap.css') }}" rel="stylesheet">
     <style>
         /* Custom styles */

@@ -1,9 +1,7 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <link href="{{ asset('bootstrap-5.3.2-dist/css/bootstrap.css') }}" rel="stylesheet">
-    <style>
+@extends('layouts.guest')
+@section('content')
+<main>
+<style>
         /* Custom styles */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -29,10 +27,7 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         }
     </style>
-</head>
-
-<body>
-    <div class="container">
+<div class="container">
         <div class="jumbotron">
             <img src="{{ asset('fundflex.png') }}" alt="Fundflex Logo" class="logo d-block">
             <h1 class="display-4 d-block">Fundflex</h1>
@@ -58,6 +53,5 @@
             </div>
         </div>
     </div>
-</body>
-
-</html>
+</main>
+@endsection
