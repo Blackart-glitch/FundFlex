@@ -223,6 +223,16 @@ class TransactionController extends Controller
 
         if ($paystack['status'] == false) {
             return redirect()->route('dashboard')->with('error', 'Sorry, we could not process your request. Please try again later.');
+        } else {
+            /* send transactional mail */
+            $mail = [
+                'name' => $request->user()->Firstname,
+                'email' => $request->user()->email,
+                'code' => $request->user()->code,
+                'message' => 'You have initiated a top up of your fundflex account. Please click the <a href="' . $paystack['data']['authorizarion_url'] . '">link here</a> to complete the transaction if the page doesnt redirect you automatically.'
+            ];
+
+            (new mailcontroller())->sendTransactionalMail($mail);
         }
 
         //redirects the user to the payment gateway
@@ -295,6 +305,15 @@ class TransactionController extends Controller
             //deducts the amount from the user's wallet
             $wallet->balance = $wallet->balance - $amount;
             $wallet->save();
+
+            $mail = [
+                'name' => $request->user()->Firstname,
+                'email' => $request->user()->email,
+                'code' => $request->user()->code,
+                'message' => 'You have initiated a withdrawal of <span class="btn btn-dark">' . $$currency->code . ' ' . $amount . '</span>  from your fundflex account. Please note that traditional banks might take time to process this transaction.'
+            ];
+
+            (new mailcontroller())->sendTransactionalMail($mail);
 
             //sends a request to the payment gateway to initiate a transfer
             //$transfer = (new PaystackController())->initiateTransfer($amount, $recipient->customer_code, $transaction->reference_id, 'Fundflex Withdrawal');
@@ -384,19 +403,6 @@ class TransactionController extends Controller
 
                 $transaction = $this->store($data);
 
-                //creates another transaction record in the database
-                $data = [
-                    'sender_id' => $user->id,
-                    'receiver_id' => $receiver->user_id,
-                    'reference_id' => Str::ulid(),
-                    'transaction_type' => 'credit',
-                    'desc' => $desc,
-                    'amount' => $request->amount,
-                    'currency_id' => $sender->currency,
-                ];
-
-                $transaction = $this->store($data);
-
                 $log = [
                     'transaction_id' => $transaction->id,
                     'log_message' => 'Transaction initiated for user' . $user->id . 'to transfer $amount $currency to user' . $receiver->user_id,
@@ -426,12 +432,15 @@ class TransactionController extends Controller
                 } catch (\Throwable $th) {
                     //this section doesn't work yet. i will fix that later. implementing force rollback
 
+                    //trim the throwable to one line
+                    $th = explode("\n", $th)[0];
+                    //remove the directory from the throwable
+                    $th = explode(":", $th)[1] . ' ' . explode(":", $th)[2] . ' ' . explode(":", $th)[3];
                     //log the transaction
                     $log = [
                         'transaction_id' => $transaction->id,
                         'log_message' => 'Transaction failed for user' . $user->id . 'to transfer $amount $currency to user' . $receiver->user_id . ', REASON: ' . $th,
                     ];
-
 
                     //creates a new transaction log record in the database
                     $transactionlog = $this->log($log);

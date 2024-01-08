@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\regmail;
 use App\Mail\verifymail;
+use App\Mail\txnmail;
 
 class MailController extends Controller
 {
@@ -63,6 +64,20 @@ class MailController extends Controller
     {
         try {
             Mail::to($data['email'])->send((new regmail($data)));
+
+            return [
+                'status' => true,
+                'message' => 'Email sent successfully!'
+            ];
+        } catch (\Throwable $th) {
+            return $th;
+        }
+    }
+
+    public function sendTransactionalMail($data)
+    {
+        try {
+            Mail::to($data['email'])->send((new txnmail($data)));
 
             return [
                 'status' => true,

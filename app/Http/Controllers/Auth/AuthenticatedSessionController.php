@@ -12,6 +12,7 @@ use Illuminate\View\View;
 
 use App\Http\Controllers\SecurityTokenController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\mailcontroller;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\TwoFactorAuthentication;
 
@@ -49,6 +50,16 @@ class AuthenticatedSessionController extends Controller
                 //redirect to the 2fa page with the QR code and token
                 return redirect()->route('two-factor');
             } else {
+                /* send transactional mail */
+                $data = [
+                    'name' => $request->user()->Firstname,
+                    'email' => $request->user()->email,
+                    'code' => $request->user()->code,
+                    'message' => 'You have successfully logged in to your account. Ensure you put on a 2FA for your account security.'
+                ];
+
+                (new mailcontroller())->sendTransactionalMail($data);
+
                 return redirect()->intended(RouteServiceProvider::HOME . '?two_factor=1&logged_in=1');
             }
         } else {
