@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="{{ asset('bootstrap-5.3.2-dist/css/bootstrap.css') }}">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-
     <script src="{{ asset('jquery-3.7.1.js') }}"></script>
     <script src="{{ asset('bootstrap-5.3.2-dist/js/bootstrap.js') }}"></script>
 </head>

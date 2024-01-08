@@ -4,6 +4,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no"
+        name="viewport" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>{{ config('app.name', 'FundFlex') }}</title>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     {{-- Bootstrap 5 css stylesheet --}}
     <link rel="stylesheet" href="{{ asset('bootstrap-5.3.2-dist/css/bootstrap.css') }}">
     <link rel="stylesheet"
