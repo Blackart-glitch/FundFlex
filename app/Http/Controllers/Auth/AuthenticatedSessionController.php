@@ -45,7 +45,8 @@ class AuthenticatedSessionController extends Controller
 
         if ($request->user()->hasVerifiedEmail()) {
 
-            if ((new TwoFactorAuthentication())->Is2faEnabled($request->user())) {
+            //temporary fix for two factor authentication
+            if (auth()->user()->two_factor === 'enabled') {
 
                 //redirect to the 2fa page with the QR code and token
                 return redirect()->route('two-factor');
