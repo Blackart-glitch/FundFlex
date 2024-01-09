@@ -65,7 +65,7 @@ class TwoFactorAuthentication extends Controller
         $user = User::find($user->id)->first();
 
         //checks if 2fa column of the user is enabled or disabled
-        if ($user->two_factor == 'enabled') {
+        if ($user->two_factor === 'enabled') {
             return true;
         } else {
             return false;

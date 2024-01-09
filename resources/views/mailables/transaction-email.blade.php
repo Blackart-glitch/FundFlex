@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <link href="{{ asset('bootstrap-5.3.2-dist/css/bootstrap.css') }}" rel="stylesheet">
@@ -42,13 +41,11 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title bg-dark p-3 text-white">Hello {{ $data['name'] }}</h5>
-                <p class="card-text">Thank you for registering with our service. To complete your registration, please
-                    use the digits below:</p>
                 <h3 class="mb-4">
                     <span class="badge bg-dark">{{ $data['message'] }}</span>
                 </h3>
 
-                <p class="card-text mt-3">If you didn't request this perform this, please report to customer care.</p>
+                <p class="card-text mt-3">If you didn't perform this action, please report to customer care.</p>
             </div>
         </div>
     </div>
